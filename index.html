@@ -248,88 +248,42 @@
             animation: float 8s linear infinite;
         }
 
-        /* Animaciones */
         @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         @keyframes heartbeat {
-            0% {
-                transform: scale(1);
-            }
-            5% {
-                transform: scale(1.1);
-            }
-            10% {
-                transform: scale(1);
-            }
-            15% {
-                transform: scale(1.2);
-            }
-            50% {
-                transform: scale(1);
-            }
-            100% {
-                transform: scale(1);
-            }
+            0% { transform: scale(1); }
+            5% { transform: scale(1.1); }
+            10% { transform: scale(1); }
+            15% { transform: scale(1.2); }
+            50% { transform: scale(1); }
+            100% { transform: scale(1); }
         }
 
         @keyframes float {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .app-container {
                 flex-direction: column;
@@ -343,282 +297,270 @@
     </style>
 </head>
 <body>
-    <div class="floating-hearts" id="floatingHearts"></div>
-    
-    <div class="container">
-        <header>
-            <h1>Notitas para mi Amor <span class="heart">❤</span></h1>
-            <p class="subtitle">Guarda aquí todos nuestros recuerdos especiales</p>
-        </header>
-        
-        <div class="app-container">
-            <div class="note-form">
-                <h2 class="form-title">Crear Nueva Nota</h2>
-                <form id="noteForm">
-                    <div class="input-group">
-                        <label for="noteDate">Fecha:</label>
-                        <input type="date" id="noteDate" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="noteContent">Tu mensaje:</label>
-                        <textarea id="noteContent" placeholder="Escribe aquí tu mensaje especial..." required></textarea>
-                    </div>
-                    <button type="submit" class="btn">Guardar Nota</button>
-                </form>
-            </div>
-            
-            <div class="notes-container" id="notesContainer">
-                <!-- Las notas se agregarán aquí dinámicamente -->
-                <div class="empty-notes" id="emptyNotes">
-                    Aún no hay notas. ¡Crea la primera!
+
+<div class="floating-hearts" id="floatingHearts"></div>
+
+<div class="container">
+    <header>
+        <h1>Notitas para mi Amor <span class="heart">❤</span></h1>
+        <p class="subtitle">Guarda aquí todos nuestros recuerdos especiales</p>
+    </header>
+
+    <div class="app-container">
+
+        <div class="note-form">
+            <h2 class="form-title">Crear Nueva Nota</h2>
+            <form id="noteForm">
+                <div class="input-group">
+                    <label for="noteDate">Fecha:</label>
+                    <input type="date" id="noteDate" required>
                 </div>
+                <div class="input-group">
+                    <label for="noteContent">Tu mensaje:</label>
+                    <textarea id="noteContent" placeholder="Escribe aquí tu mensaje especial..." required></textarea>
+                </div>
+                <button type="submit" class="btn">Guardar Nota</button>
+            </form>
+        </div>
+
+        <div class="notes-container" id="notesContainer">
+
+            <!-- AQUI AGREGAS TUS NOTAS MANUALMENTE -->
+            <ul id="staticNotes" style="display:none;">
+                <!--  EJEMPLO
+                <li class="news-item">
+                    <div class="meta">08 de Junio 2025</div>
+                    <h3>Nota #1</h3>
+                    <p>Mensaje escrito directamente en el HTML.</p>
+                </li>
+                -->
+            </ul>
+
+            <div class="empty-notes" id="emptyNotes">
+                Aún no hay notas. ¡Crea la primera!
             </div>
+
         </div>
     </div>
+</div>
 
-    <script>
-        // Variable para controlar el modo de edición
-        let editMode = false;
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            // Crear corazones flotantes
-            createFloatingHearts();
-            
-            // Cargar notas guardadas
-            loadNotes();
-            
-            // Manejar el envío del formulario
-            document.getElementById('noteForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const date = document.getElementById('noteDate').value;
-                const content = document.getElementById('noteContent').value;
-                
-                if (date && content) {
-                    addNote(date, content);
-                    document.getElementById('noteForm').reset();
-                    
-                    // Restablecer la fecha actual
-                    const today = new Date().toISOString().split('T')[0];
-                    document.getElementById('noteDate').value = today;
-                }
-            });
-            
-            // Establecer la fecha actual por defecto
+<script>
+
+let editMode = false;
+
+document.addEventListener('DOMContentLoaded', function() {
+
+    createFloatingHearts();
+    loadStaticNotes();  // ← NUEVO
+    loadNotes();
+
+    document.getElementById('noteForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const date = document.getElementById('noteDate').value;
+        const content = document.getElementById('noteContent').value;
+
+        if (date && content) {
+            addNote(date, content);
+            document.getElementById('noteForm').reset();
+
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('noteDate').value = today;
-            
-            // Activar modo edición con doble clic en el título
-            document.querySelector('h1').addEventListener('dblclick', function() {
-                toggleEditMode();
-            });
-        });
-        
-        function createFloatingHearts() {
-            const container = document.getElementById('floatingHearts');
-            const heartCount = 15;
-            
-            for (let i = 0; i < heartCount; i++) {
-                const heart = document.createElement('div');
-                heart.classList.add('heart-float');
-                heart.innerHTML = '❤';
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDuration = (Math.random() * 10 + 5) + 's';
-                heart.style.animationDelay = Math.random() * 5 + 's';
-                container.appendChild(heart);
-            }
         }
-        
-        function toggleEditMode() {
-            editMode = !editMode;
-            
-            // Mostrar u ocultar botones de edición
-            const editButtons = document.querySelectorAll('.edit-btn');
-            editButtons.forEach(button => {
-                button.style.display = editMode ? 'block' : 'none';
-            });
-            
-            // Cambiar el borde de las notas para indicar modo edición
-            const notes = document.querySelectorAll('.note');
-            notes.forEach(note => {
-                if (editMode) {
-                    note.style.border = '2px dashed var(--morado)';
-                } else {
-                    note.style.border = 'none';
-                }
-            });
-            
-            // Mostrar mensaje temporal
-            showMessage(editMode ? 'Modo edición activado' : 'Modo edición desactivado');
-        }
-        
-        function showMessage(message) {
-            // Crear elemento de mensaje
-            const messageEl = document.createElement('div');
-            messageEl.textContent = message;
-            messageEl.style.position = 'fixed';
-            messageEl.style.top = '20px';
-            messageEl.style.left = '50%';
-            messageEl.style.transform = 'translateX(-50%)';
-            messageEl.style.backgroundColor = 'var(--morado)';
-            messageEl.style.color = 'white';
-            messageEl.style.padding = '10px 20px';
-            messageEl.style.borderRadius = '5px';
-            messageEl.style.zIndex = '1000';
-            messageEl.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
-            
-            document.body.appendChild(messageEl);
-            
-            // Eliminar mensaje después de 2 segundos
-            setTimeout(() => {
-                document.body.removeChild(messageEl);
-            }, 2000);
-        }
-        
-        function addNote(date, content) {
-            // Ocultar mensaje de notas vacías si existe
-            const emptyNotes = document.getElementById('emptyNotes');
-            if (emptyNotes) {
-                emptyNotes.style.display = 'none';
-            }
-            
-            // Crear elemento de nota
-            const noteElement = document.createElement('div');
-            noteElement.classList.add('note');
-            
-            const formattedDate = formatDate(date);
-            
-            noteElement.innerHTML = `
-                <div class="note-header">
-                    <div class="note-date">${formattedDate}</div>
-                    <div class="note-actions">
-                        <button class="edit-btn" onclick="editNote(this)" style="display: ${editMode ? 'block' : 'none'}">✏️</button>
-                        <button class="delete-btn" onclick="deleteNote(this)">×</button>
-                    </div>
+    });
+
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('noteDate').value = today;
+
+    document.querySelector('h1').addEventListener('dblclick', function() {
+        toggleEditMode();
+    });
+});
+
+function loadStaticNotes() {
+    const items = document.querySelectorAll('#staticNotes .news-item');
+
+    items.forEach(item => {
+        const date = item.querySelector('.meta').textContent.trim();
+        const title = item.querySelector('h3').textContent.trim();
+        const content = item.querySelector('p').innerHTML.trim();
+
+        const noteEl = document.createElement('div');
+        noteEl.classList.add('note');
+
+        noteEl.innerHTML = `
+            <div class="note-header">
+                <div class="note-date">${date}</div>
+                <div class="note-actions">
+                    <button class="edit-btn" onclick="editNote(this)" style="display:${editMode ? 'block':'none'}">✏️</button>
+                    <button class="delete-btn" onclick="deleteNote(this)">×</button>
                 </div>
-                <div class="note-content">${content}</div>
-            `;
-            
-            // Agregar animación de entrada
-            noteElement.style.animation = 'fadeIn 0.5s ease';
-            
-            // Agregar a contenedor
-            document.getElementById('notesContainer').appendChild(noteElement);
-            
-            // Guardar en localStorage
-            saveNotes();
+            </div>
+            <div class="note-content"><strong>${title}</strong><br>${content}</div>
+        `;
+
+        document.getElementById('notesContainer').appendChild(noteEl);
+    });
+}
+
+function createFloatingHearts() {
+    const container = document.getElementById('floatingHearts');
+    const heartCount = 15;
+
+    for (let i = 0; i < heartCount; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart-float');
+        heart.innerHTML = '❤';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (Math.random() * 10 + 5) + 's';
+        heart.style.animationDelay = Math.random() * 5 + 's';
+        container.appendChild(heart);
+    }
+}
+
+function toggleEditMode() {
+    editMode = !editMode;
+
+    const editButtons = document.querySelectorAll('.edit-btn');
+    editButtons.forEach(btn => btn.style.display = editMode ? 'block' : 'none');
+
+    const notes = document.querySelectorAll('.note');
+    notes.forEach(note => {
+        note.style.border = editMode ? '2px dashed var(--morado)' : 'none';
+    });
+
+    showMessage(editMode ? 'Modo edición activado' : 'Modo edición desactivado');
+}
+
+function showMessage(message) {
+    const el = document.createElement('div');
+    el.textContent = message;
+    el.style.position = 'fixed';
+    el.style.top = '20px';
+    el.style.left = '50%';
+    el.style.transform = 'translateX(-50%)';
+    el.style.backgroundColor = 'var(--morado)';
+    el.style.color = 'white';
+    el.style.padding = '10px 20px';
+    el.style.borderRadius = '5px';
+    el.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
+    el.style.zIndex = '1000';
+
+    document.body.appendChild(el);
+
+    setTimeout(() => el.remove(), 2000);
+}
+
+function addNote(date, content) {
+    const emptyNotes = document.getElementById('emptyNotes');
+    if (emptyNotes) emptyNotes.style.display = 'none';
+
+    const note = document.createElement('div');
+    note.classList.add('note');
+
+    const formattedDate = formatDate(date);
+
+    note.innerHTML = `
+        <div class="note-header">
+            <div class="note-date">${formattedDate}</div>
+            <div class="note-actions">
+                <button class="edit-btn" onclick="editNote(this)" style="display:${editMode ? 'block':'none'}">✏️</button>
+                <button class="delete-btn" onclick="deleteNote(this)">×</button>
+            </div>
+        </div>
+        <div class="note-content">${content}</div>
+    `;
+
+    note.style.animation = 'fadeIn 0.5s ease';
+    document.getElementById('notesContainer').appendChild(note);
+
+    saveNotes();
+}
+
+function editNote(button) {
+    const note = button.closest('.note');
+    const content = note.querySelector('.note-content');
+
+    if (content.isContentEditable) {
+        content.contentEditable = false;
+        content.classList.remove('editable');
+        button.textContent = '✏️';
+        saveNotes();
+    } else {
+        content.contentEditable = true;
+        content.classList.add('editable');
+        button.textContent = '💾';
+        content.focus();
+    }
+}
+
+function deleteNote(button) {
+    const note = button.closest('.note');
+
+    note.style.animation = 'fadeOut 0.5s ease';
+
+    setTimeout(() => {
+        note.remove();
+
+        const notesContainer = document.getElementById('notesContainer');
+        if (notesContainer.children.length === 1) {
+            const emptyNotes = document.getElementById('emptyNotes');
+            if (emptyNotes) emptyNotes.style.display = 'block';
         }
-        
-        function editNote(button) {
-            const noteElement = button.closest('.note');
-            const contentElement = noteElement.querySelector('.note-content');
-            
-            // Si ya está en modo edición, guardar cambios
-            if (contentElement.isContentEditable) {
-                contentElement.contentEditable = false;
-                contentElement.classList.remove('editable');
-                button.textContent = '✏️';
-                
-                // Actualizar en localStorage
-                saveNotes();
-            } else {
-                // Activar modo edición
-                contentElement.contentEditable = true;
-                contentElement.classList.add('editable');
-                button.textContent = '💾';
-                
-                // Enfocar el contenido
-                contentElement.focus();
-            }
-        }
-        
-        function deleteNote(button) {
-            const noteElement = button.closest('.note');
-            
-            // Animación de salida
-            noteElement.style.animation = 'fadeOut 0.5s ease';
-            setTimeout(() => {
-                noteElement.remove();
-                
-                // Mostrar mensaje de notas vacías si no hay más notas
-                const notesContainer = document.getElementById('notesContainer');
-                if (notesContainer.children.length === 1) { // Solo queda el mensaje vacío
-                    const emptyNotes = document.getElementById('emptyNotes');
-                    if (emptyNotes) {
-                        emptyNotes.style.display = 'block';
-                    }
-                }
-                
-                // Actualizar localStorage
-                saveNotes();
-            }, 500);
-        }
-        
-        function formatDate(dateString) {
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            return new Date(dateString).toLocaleDateString('es-ES', options);
-        }
-        
-        function saveNotes() {
-            const notes = [];
-            const noteElements = document.querySelectorAll('.note');
-            
-            noteElements.forEach(note => {
-                const date = note.querySelector('.note-date').textContent;
-                const content = note.querySelector('.note-content').textContent;
-                notes.push({ date, content });
-            });
-            
-            localStorage.setItem('loveNotes', JSON.stringify(notes));
-        }
-        
-        function loadNotes() {
-            const savedNotes = localStorage.getItem('loveNotes');
-            
-            if (savedNotes) {
-                const notes = JSON.parse(savedNotes);
-                
-                if (notes.length > 0) {
-                    // Ocultar mensaje de notas vacías
-                    const emptyNotes = document.getElementById('emptyNotes');
-                    if (emptyNotes) {
-                        emptyNotes.style.display = 'none';
-                    }
-                    
-                    // Cargar notas
-                    notes.forEach(note => {
-                        // Convertir fecha de formato español a formato de entrada
-                        const dateParts = note.date.split(' de ');
-                        const day = dateParts[0];
-                        const month = getMonthNumber(dateParts[1]);
-                        const year = dateParts[2];
-                        const formattedDate = `${year}-${month}-${day.padStart(2, '0')}`;
-                        
-                        addNote(formattedDate, note.content);
-                    });
-                }
-            }
-        }
-        
-        function getMonthNumber(monthName) {
-            const months = {
-                'enero': '01',
-                'febrero': '02',
-                'marzo': '03',
-                'abril': '04',
-                'mayo': '05',
-                'junio': '06',
-                'julio': '07',
-                'agosto': '08',
-                'septiembre': '09',
-                'octubre': '10',
-                'noviembre': '11',
-                'diciembre': '12'
-            };
-            
-            return months[monthName.toLowerCase()] || '01';
-        }
-    </script>
+
+        saveNotes();
+    }, 500);
+}
+
+function formatDate(dateString) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString('es-ES', options);
+}
+
+function saveNotes() {
+    const notes = [];
+    const elements = document.querySelectorAll('.note');
+
+    elements.forEach(n => {
+        const date = n.querySelector('.note-date').textContent;
+        const content = n.querySelector('.note-content').innerHTML;
+        notes.push({ date, content });
+    });
+
+    localStorage.setItem('loveNotes', JSON.stringify(notes));
+}
+
+function loadNotes() {
+    const raw = localStorage.getItem('loveNotes');
+    if (!raw) return;
+
+    const notes = JSON.parse(raw);
+
+    if (notes.length > 0) {
+        const emptyNotes = document.getElementById('emptyNotes');
+        if (emptyNotes) emptyNotes.style.display = 'none';
+    }
+
+    notes.forEach(note => {
+        const noteEl = document.createElement('div');
+        noteEl.classList.add('note');
+
+        noteEl.innerHTML = `
+            <div class="note-header">
+                <div class="note-date">${note.date}</div>
+                <div class="note-actions">
+                    <button class="edit-btn" onclick="editNote(this)" style="display:${editMode ? 'block':'none'}">✏️</button>
+                    <button class="delete-btn" onclick="deleteNote(this)">×</button>
+                </div>
+            </div>
+            <div class="note-content">${note.content}</div>
+        `;
+
+        document.getElementById('notesContainer').appendChild(noteEl);
+    });
+}
+
+</script>
+
 </body>
 </html>
-
