@@ -3,41 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuestras Notas Compartidas</title>
-    <!-- Firebase SDK v9 -->
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot, orderBy, query, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
-
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyDna0m-v_Kz1xD0ct7LeiVkbrWPYMKbc7o",
-            authDomain: "ludom-f94fb.firebaseapp.com",
-            projectId: "ludom-f94fb",
-            storageBucket: "ludom-f94fb.firebasestorage.app",
-            messagingSenderId: "11117254668",
-            appId: "1:11117254668:web:6dc390dc8942c4fdaaf629",
-            measurementId: "G-LXR1J0T1DL"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        // Hacer las funciones disponibles globalmente
-        window.firebaseApp = {
-            db,
-            collection,
-            addDoc,
-            deleteDoc,
-            doc,
-            onSnapshot,
-            orderBy,
-            query,
-            serverTimestamp
-        };
-    </script>
+    <title>Notas para mi Amor</title>
     <style>
         :root {
             --blanco: #ffffff;
@@ -46,6 +12,7 @@
             --celeste: #b3e0ff;
             --celeste-oscuro: #66c2ff;
             --sombra: rgba(0, 0, 0, 0.1);
+            --cuadro-color: #f0e6ff;
         }
 
         * {
@@ -167,13 +134,6 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .btn:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
         .notes-container {
             flex: 1;
             min-width: 300px;
@@ -225,31 +185,41 @@
             font-weight: 600;
         }
 
-        .delete-btn {
+        .note-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .edit-btn, .delete-btn {
             background: none;
             border: none;
-            color: #ff6b6b;
             cursor: pointer;
             font-size: 1.2rem;
             transition: all 0.3s ease;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
-        .delete-btn:hover {
+        .edit-btn {
+            color: var(--morado);
+        }
+
+        .delete-btn {
+            color: #ff6b6b;
+        }
+
+        .edit-btn:hover, .delete-btn:hover {
             transform: scale(1.2);
-            background-color: rgba(255, 107, 107, 0.1);
         }
 
         .note-content {
             color: #333;
             line-height: 1.5;
-            white-space: pre-wrap;
-            word-break: break-word;
+        }
+
+        .note-content.editable {
+            border: 1px dashed var(--morado);
+            padding: 8px;
+            border-radius: 5px;
+            background-color: var(--cuadro-color);
         }
 
         .empty-notes {
@@ -276,31 +246,6 @@
             color: rgba(255, 255, 255, 0.5);
             font-size: 20px;
             animation: float 8s linear infinite;
-        }
-
-        .loading {
-            text-align: center;
-            color: var(--blanco);
-            padding: 20px;
-            grid-column: 1 / -1;
-        }
-
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: var(--blanco);
-            color: var(--morado-oscuro);
-            padding: 15px 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px var(--sombra);
-            transform: translateX(120%);
-            transition: transform 0.3s ease;
-            z-index: 1000;
-        }
-
-        .notification.show {
-            transform: translateX(0);
         }
 
         /* Animaciones */
@@ -394,21 +339,16 @@
             .note-form, .notes-container {
                 width: 100%;
             }
-            
-            h1 {
-                font-size: 2rem;
-            }
         }
     </style>
 </head>
 <body>
     <div class="floating-hearts" id="floatingHearts"></div>
-    <div class="notification" id="notification"></div>
     
     <div class="container">
         <header>
-            <h1>Nuestras Notas Compartidas <span class="heart">❤</span></h1>
-            <p class="subtitle">Todas nuestras notas están guardadas en la nube</p>
+            <h1>Notitas para mi Amor <span class="heart">❤</span></h1>
+            <p class="subtitle">Guarda aquí todos nuestros recuerdos especiales</p>
         </header>
         
         <div class="app-container">
@@ -423,52 +363,56 @@
                         <label for="noteContent">Tu mensaje:</label>
                         <textarea id="noteContent" placeholder="Escribe aquí tu mensaje especial..." required></textarea>
                     </div>
-                    <button type="submit" class="btn" id="submitBtn">Guardar Nota</button>
+                    <button type="submit" class="btn">Guardar Nota</button>
                 </form>
             </div>
             
             <div class="notes-container" id="notesContainer">
-                <div class="loading" id="loadingNotes">
-                    Cargando notas compartidas...
+                <!-- Las notas se agregarán aquí dinámicamente -->
+                <div class="empty-notes" id="emptyNotes">
+                    Aún no hay notas. ¡Crea la primera!
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        // Variable para controlar el modo de edición
+        let editMode = false;
+        
         document.addEventListener('DOMContentLoaded', function() {
-            // Esperar a que Firebase esté listo
-            const checkFirebaseReady = setInterval(() => {
-                if (window.firebaseApp) {
-                    clearInterval(checkFirebaseReady);
-                    initApp();
-                }
-            }, 100);
-        });
-
-        function initApp() {
             // Crear corazones flotantes
             createFloatingHearts();
             
-            // Cargar notas desde Firebase
-            loadNotesFromFirebase();
+            // Cargar notas guardadas
+            loadNotes();
             
             // Manejar el envío del formulario
             document.getElementById('noteForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 
                 const date = document.getElementById('noteDate').value;
-                const content = document.getElementById('noteContent').value.trim();
+                const content = document.getElementById('noteContent').value;
                 
                 if (date && content) {
-                    addNoteToFirebase(date, content);
+                    addNote(date, content);
+                    document.getElementById('noteForm').reset();
+                    
+                    // Restablecer la fecha actual
+                    const today = new Date().toISOString().split('T')[0];
+                    document.getElementById('noteDate').value = today;
                 }
             });
             
             // Establecer la fecha actual por defecto
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('noteDate').value = today;
-        }
+            
+            // Activar modo edición con doble clic en el título
+            document.querySelector('h1').addEventListener('dblclick', function() {
+                toggleEditMode();
+            });
+        });
         
         function createFloatingHearts() {
             const container = document.getElementById('floatingHearts');
@@ -485,114 +429,129 @@
             }
         }
         
-        function addNoteToFirebase(date, content) {
-            const submitBtn = document.getElementById('submitBtn');
-            const originalText = submitBtn.textContent;
+        function toggleEditMode() {
+            editMode = !editMode;
             
-            // Deshabilitar botón y mostrar carga
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Guardando...';
-            
-            const { addDoc, collection, serverTimestamp } = window.firebaseApp;
-            
-            addDoc(collection(window.firebaseApp.db, "notes"), {
-                date: date,
-                content: content,
-                timestamp: serverTimestamp()
-            })
-            .then(() => {
-                document.getElementById('noteForm').reset();
-                // Restablecer fecha actual
-                const today = new Date().toISOString().split('T')[0];
-                document.getElementById('noteDate').value = today;
-                showNotification('Nota guardada correctamente 💕');
-            })
-            .catch((error) => {
-                console.error("Error al guardar la nota: ", error);
-                showNotification('Error al guardar la nota. Inténtalo de nuevo.', true);
-            })
-            .finally(() => {
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
+            // Mostrar u ocultar botones de edición
+            const editButtons = document.querySelectorAll('.edit-btn');
+            editButtons.forEach(button => {
+                button.style.display = editMode ? 'block' : 'none';
             });
-        }
-        
-        function loadNotesFromFirebase() {
-            const { collection, query, orderBy, onSnapshot } = window.firebaseApp;
             
-            const q = query(
-                collection(window.firebaseApp.db, "notes"), 
-                orderBy("timestamp", "desc")
-            );
-            
-            onSnapshot(q, (querySnapshot) => {
-                const notesContainer = document.getElementById('notesContainer');
-                notesContainer.innerHTML = '';
-                
-                if (querySnapshot.empty) {
-                    notesContainer.innerHTML = '<div class="empty-notes">Aún no hay notas. ¡Crea la primera!</div>';
-                    return;
+            // Cambiar el borde de las notas para indicar modo edición
+            const notes = document.querySelectorAll('.note');
+            notes.forEach(note => {
+                if (editMode) {
+                    note.style.border = '2px dashed var(--morado)';
+                } else {
+                    note.style.border = 'none';
                 }
-                
-                querySnapshot.forEach((doc) => {
-                    const noteData = doc.data();
-                    displayNote(noteData.date, noteData.content, doc.id);
-                });
-            }, (error) => {
-                console.error("Error al cargar notas: ", error);
-                document.getElementById('notesContainer').innerHTML = 
-                    '<div class="empty-notes">Error al cargar las notas. Intenta recargar la página.</div>';
             });
+            
+            // Mostrar mensaje temporal
+            showMessage(editMode ? 'Modo edición activado' : 'Modo edición desactivado');
         }
         
-        function displayNote(date, content, noteId) {
-            const notesContainer = document.getElementById('notesContainer');
+        function showMessage(message) {
+            // Crear elemento de mensaje
+            const messageEl = document.createElement('div');
+            messageEl.textContent = message;
+            messageEl.style.position = 'fixed';
+            messageEl.style.top = '20px';
+            messageEl.style.left = '50%';
+            messageEl.style.transform = 'translateX(-50%)';
+            messageEl.style.backgroundColor = 'var(--morado)';
+            messageEl.style.color = 'white';
+            messageEl.style.padding = '10px 20px';
+            messageEl.style.borderRadius = '5px';
+            messageEl.style.zIndex = '1000';
+            messageEl.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
             
-            // Si hay un mensaje de "no hay notas", eliminarlo
-            const emptyNotes = notesContainer.querySelector('.empty-notes');
+            document.body.appendChild(messageEl);
+            
+            // Eliminar mensaje después de 2 segundos
+            setTimeout(() => {
+                document.body.removeChild(messageEl);
+            }, 2000);
+        }
+        
+        function addNote(date, content) {
+            // Ocultar mensaje de notas vacías si existe
+            const emptyNotes = document.getElementById('emptyNotes');
             if (emptyNotes) {
-                emptyNotes.remove();
+                emptyNotes.style.display = 'none';
             }
             
             // Crear elemento de nota
             const noteElement = document.createElement('div');
             noteElement.classList.add('note');
-            noteElement.setAttribute('data-id', noteId);
             
             const formattedDate = formatDate(date);
             
             noteElement.innerHTML = `
                 <div class="note-header">
                     <div class="note-date">${formattedDate}</div>
-                    <button class="delete-btn" title="Eliminar nota">×</button>
+                    <div class="note-actions">
+                        <button class="edit-btn" onclick="editNote(this)" style="display: ${editMode ? 'block' : 'none'}">✏️</button>
+                        <button class="delete-btn" onclick="deleteNote(this)">×</button>
+                    </div>
                 </div>
                 <div class="note-content">${content}</div>
             `;
-            
-            // Agregar evento de eliminación
-            const deleteBtn = noteElement.querySelector('.delete-btn');
-            deleteBtn.addEventListener('click', () => deleteNoteFromFirebase(noteId));
             
             // Agregar animación de entrada
             noteElement.style.animation = 'fadeIn 0.5s ease';
             
             // Agregar a contenedor
-            notesContainer.appendChild(noteElement);
+            document.getElementById('notesContainer').appendChild(noteElement);
+            
+            // Guardar en localStorage
+            saveNotes();
         }
         
-        function deleteNoteFromFirebase(noteId) {
-            if (confirm("¿Estás seguro de que quieres eliminar esta nota?")) {
-                const { deleteDoc, doc } = window.firebaseApp;
+        function editNote(button) {
+            const noteElement = button.closest('.note');
+            const contentElement = noteElement.querySelector('.note-content');
+            
+            // Si ya está en modo edición, guardar cambios
+            if (contentElement.isContentEditable) {
+                contentElement.contentEditable = false;
+                contentElement.classList.remove('editable');
+                button.textContent = '✏️';
                 
-                deleteDoc(doc(window.firebaseApp.db, "notes", noteId))
-                    .then(() => {
-                        showNotification('Nota eliminada 💔');
-                    })
-                    .catch((error) => {
-                        console.error("Error al eliminar la nota: ", error);
-                        showNotification('Error al eliminar la nota. Inténtalo de nuevo.', true);
-                    });
+                // Actualizar en localStorage
+                saveNotes();
+            } else {
+                // Activar modo edición
+                contentElement.contentEditable = true;
+                contentElement.classList.add('editable');
+                button.textContent = '💾';
+                
+                // Enfocar el contenido
+                contentElement.focus();
             }
+        }
+        
+        function deleteNote(button) {
+            const noteElement = button.closest('.note');
+            
+            // Animación de salida
+            noteElement.style.animation = 'fadeOut 0.5s ease';
+            setTimeout(() => {
+                noteElement.remove();
+                
+                // Mostrar mensaje de notas vacías si no hay más notas
+                const notesContainer = document.getElementById('notesContainer');
+                if (notesContainer.children.length === 1) { // Solo queda el mensaje vacío
+                    const emptyNotes = document.getElementById('emptyNotes');
+                    if (emptyNotes) {
+                        emptyNotes.style.display = 'block';
+                    }
+                }
+                
+                // Actualizar localStorage
+                saveNotes();
+            }, 500);
         }
         
         function formatDate(dateString) {
@@ -600,18 +559,66 @@
             return new Date(dateString).toLocaleDateString('es-ES', options);
         }
         
-        function showNotification(message, isError = false) {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.style.backgroundColor = isError ? '#ffebee' : 'var(--blanco)';
-            notification.style.color = isError ? '#c62828' : 'var(--morado-oscuro)';
+        function saveNotes() {
+            const notes = [];
+            const noteElements = document.querySelectorAll('.note');
             
-            notification.classList.add('show');
+            noteElements.forEach(note => {
+                const date = note.querySelector('.note-date').textContent;
+                const content = note.querySelector('.note-content').textContent;
+                notes.push({ date, content });
+            });
             
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
+            localStorage.setItem('loveNotes', JSON.stringify(notes));
+        }
+        
+        function loadNotes() {
+            const savedNotes = localStorage.getItem('loveNotes');
+            
+            if (savedNotes) {
+                const notes = JSON.parse(savedNotes);
+                
+                if (notes.length > 0) {
+                    // Ocultar mensaje de notas vacías
+                    const emptyNotes = document.getElementById('emptyNotes');
+                    if (emptyNotes) {
+                        emptyNotes.style.display = 'none';
+                    }
+                    
+                    // Cargar notas
+                    notes.forEach(note => {
+                        // Convertir fecha de formato español a formato de entrada
+                        const dateParts = note.date.split(' de ');
+                        const day = dateParts[0];
+                        const month = getMonthNumber(dateParts[1]);
+                        const year = dateParts[2];
+                        const formattedDate = `${year}-${month}-${day.padStart(2, '0')}`;
+                        
+                        addNote(formattedDate, note.content);
+                    });
+                }
+            }
+        }
+        
+        function getMonthNumber(monthName) {
+            const months = {
+                'enero': '01',
+                'febrero': '02',
+                'marzo': '03',
+                'abril': '04',
+                'mayo': '05',
+                'junio': '06',
+                'julio': '07',
+                'agosto': '08',
+                'septiembre': '09',
+                'octubre': '10',
+                'noviembre': '11',
+                'diciembre': '12'
+            };
+            
+            return months[monthName.toLowerCase()] || '01';
         }
     </script>
 </body>
 </html>
+
