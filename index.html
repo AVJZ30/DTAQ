@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notas para mi Amor</title>
+    <style>
+        :root {
+            --blanco: #ffffff;
+            --morado: #b19cd9;
+            --morado-oscuro: #8a6dbb;
+            --celeste: #b3e0ff;
+            --celeste-oscuro: #66c2ff;
+            --sombra: rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--celeste), var(--morado));
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeInDown 1s ease;
+        }
+
+        h1 {
+            color: var(--blanco);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .subtitle {
+            color: var(--blanco);
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .heart {
+            color: #ff6b6b;
+            display: inline-block;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        .app-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .note-form {
+            background-color: var(--blanco);
+            border-radius: 15px;
+            padding: 20px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 10px 20px var(--sombra);
+            animation: slideInLeft 0.8s ease;
+        }
+
+        .form-title {
+            color: var(--morado-oscuro);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--morado-oscuro);
+            font-weight: 500;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid var(--celeste);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--morado);
+            box-shadow: 0 0 0 3px rgba(177, 156, 217, 0.3);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .btn {
+            background-color: var(--morado);
+            color: var(--blanco);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            background-color: var(--morado-oscuro);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .notes-container {
+            flex: 1;
+            min-width: 300px;
+            max-width: 800px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            animation: slideInRight 0.8s ease;
+        }
+
+        .note {
+            background-color: var(--blanco);
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 5px 15px var(--sombra);
+            position: relative;
+            transition: all 0.3s ease;
+            animation: fadeIn 0.5s ease;
+            overflow: hidden;
+        }
+
+        .note:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .note::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--celeste), var(--morado));
+        }
+
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--celeste);
+        }
+
+        .note-date {
+            color: var(--morado-oscuro);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #ff6b6b;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .note-content {
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .empty-notes {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            color: var(--blanco);
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .heart-float {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 20px;
+            animation: float 8s linear infinite;
+        }
+
+        /* Animaciones */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes heartbeat {
+            0% {
+                transform: scale(1);
+            }
+            5% {
+                transform: scale(1.1);
+            }
+            10% {
+                transform: scale(1);
+            }
+            15% {
+                transform: scale(1.2);
+            }
+            50% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .app-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .note-form, .notes-container {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts" id="floatingHearts"></div>
+    
+    <div class="container">
+        <header>
+            <h1>Notitas para mi Amor <span class="heart">❤</span></h1>
+            <p class="subtitle">Guarda aquí todos nuestros recuerdos especiales</p>
+        </header>
+        
+        <div class="app-container">
+            <div class="note-form">
+                <h2 class="form-title">Crear Nueva Nota</h2>
+                <form id="noteForm">
+                    <div class="input-group">
+                        <label for="noteDate">Fecha:</label>
+                        <input type="date" id="noteDate" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="noteContent">Tu mensaje:</label>
+                        <textarea id="noteContent" placeholder="Escribe aquí tu mensaje especial..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Guardar Nota</button>
+                </form>
+            </div>
+            
+            <div class="notes-container" id="notesContainer">
+                <!-- Las notas se agregarán aquí dinámicamente -->
+                <div class="empty-notes" id="emptyNotes">
+                    Aún no hay notas. ¡Crea la primera!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Crear corazones flotantes
+            createFloatingHearts();
+            
+            // Cargar notas guardadas
+            loadNotes();
+            
+            // Manejar el envío del formulario
+            document.getElementById('noteForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const date = document.getElementById('noteDate').value;
+                const content = document.getElementById('noteContent').value;
+                
+                if (date && content) {
+                    addNote(date, content);
+                    document.getElementById('noteForm').reset();
+                }
+            });
+            
+            // Establecer la fecha actual por defecto
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('noteDate').value = today;
+        });
+        
+        function createFloatingHearts() {
+            const container = document.getElementById('floatingHearts');
+            const heartCount = 15;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart-float');
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(heart);
+            }
+        }
+        
+        function addNote(date, content) {
+            // Ocultar mensaje de notas vacías si existe
+            const emptyNotes = document.getElementById('emptyNotes');
+            if (emptyNotes) {
+                emptyNotes.style.display = 'none';
+            }
+            
+            // Crear elemento de nota
+            const noteElement = document.createElement('div');
+            noteElement.classList.add('note');
+            
+            const formattedDate = formatDate(date);
+            
+            noteElement.innerHTML = `
+                <div class="note-header">
+                    <div class="note-date">${formattedDate}</div>
+                    <button class="delete-btn" onclick="deleteNote(this)">×</button>
+                </div>
+                <div class="note-content">${content}</div>
+            `;
+            
+            // Agregar animación de entrada
+            noteElement.style.animation = 'fadeIn 0.5s ease';
+            
+            // Agregar a contenedor
+            document.getElementById('notesContainer').appendChild(noteElement);
+            
+            // Guardar en localStorage
+            saveNotes();
+        }
+        
+        function deleteNote(button) {
+            const noteElement = button.closest('.note');
+            
+            // Animación de salida
+            noteElement.style.animation = 'fadeOut 0.5s ease';
+            setTimeout(() => {
+                noteElement.remove();
+                
+                // Mostrar mensaje de notas vacías si no hay más notas
+                const notesContainer = document.getElementById('notesContainer');
+                if (notesContainer.children.length === 1) { // Solo queda el mensaje vacío
+                    const emptyNotes = document.getElementById('emptyNotes');
+                    if (emptyNotes) {
+                        emptyNotes.style.display = 'block';
+                    }
+                }
+                
+                // Actualizar localStorage
+                saveNotes();
+            }, 500);
+        }
+        
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('es-ES', options);
+        }
+        
+        function saveNotes() {
+            const notes = [];
+            const noteElements = document.querySelectorAll('.note');
+            
+            noteElements.forEach(note => {
+                const date = note.querySelector('.note-date').textContent;
+                const content = note.querySelector('.note-content').textContent;
+                notes.push({ date, content });
+            });
+            
+            localStorage.setItem('loveNotes', JSON.stringify(notes));
+        }
+        
+        function loadNotes() {
+            const savedNotes = localStorage.getItem('loveNotes');
+            
+            if (savedNotes) {
+                const notes = JSON.parse(savedNotes);
+                
+                if (notes.length > 0) {
+                    // Ocultar mensaje de notas vacías
+                    const emptyNotes = document.getElementById('emptyNotes');
+                    if (emptyNotes) {
+                        emptyNotes.style.display = 'none';
+                    }
+                    
+                    // Cargar notas
+                    notes.forEach(note => {
+                        // Convertir fecha de formato español a formato de entrada
+                        const dateParts = note.date.split(' de ');
+                        const day = dateParts[0];
+                        const month = getMonthNumber(dateParts[1]);
+                        const year = dateParts[2];
+                        const formattedDate = `${year}-${month}-${day.padStart(2, '0')}`;
+                        
+                        addNote(formattedDate, note.content);
+                    });
+                }
+            }
+        }
+        
+        function getMonthNumber(monthName) {
+            const months = {
+                'enero': '01',
+                'febrero': '02',
+                'marzo': '03',
+                'abril': '04',
+                'mayo': '05',
+                'junio': '06',
+                'julio': '07',
+                'agosto': '08',
+                'septiembre': '09',
+                'octubre': '10',
+                'noviembre': '11',
+                'diciembre': '12'
+            };
+            
+            return months[monthName.toLowerCase()] || '01';
+        }
+    </script>
+</body>
+</html>
