@@ -2,549 +2,741 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notas de por vida para usted mi Corazón</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Nuestro Universo | Amor Eterno</title>
+    <!-- Google Fonts y Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- AOS Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        :root {
-            --blanco: #ffffff;
-            --morado: #b19cd9;
-            --morado-oscuro: #8a6dbb;
-            --celeste: #b3e0ff;
-            --celeste-oscuro: #66c2ff;
-            --sombra: rgba(0, 0, 0, 0.1);
-            --cuadro-color: #f0e6ff;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, var(--celeste), var(--morado));
-            min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            font-family: 'Quicksand', sans-serif;
+            background: radial-gradient(circle at 10% 20%, #0a0507, #140c10);
+            color: #f5e6ec;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Paleta de colores */
+        :root {
+            --pink: #ff99c8;
+            --pink-dark: #ff6b9d;
+            --purple: #d9a7ff;
+            --purple-dark: #b77cff;
+            --red: #ff5e7c;
+            --dark: #0a0507;
+            --gold: #ffd966;
+            --shadow-lg: 0 25px 45px rgba(0,0,0,0.5);
         }
 
         .container {
-            max-width: 1200px;
-            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem;
         }
 
-        header {
+        /* HERO SUPER MEJORADO */
+        .hero {
             text-align: center;
-            margin-bottom: 30px;
-            animation: fadeInDown 1s ease;
+            padding: 4rem 1rem 3rem;
+            background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(30,15,25,0.7));
+            backdrop-filter: blur(15px);
+            border-radius: 80px;
+            margin-bottom: 2.5rem;
+            border: 2px solid transparent;
+            border-image: linear-gradient(45deg, var(--pink), var(--purple), var(--red));
+            border-image-slice: 1;
+            animation: borderGlow 3s infinite alternate, floatHero 4s infinite ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,153,200,0.1) 0%, transparent 70%);
+            animation: rotateBg 20s linear infinite;
+        }
+        @keyframes rotateBg {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes borderGlow {
+            0% { border-image-source: linear-gradient(45deg, var(--pink), var(--purple)); }
+            100% { border-image-source: linear-gradient(45deg, var(--red), var(--gold)); }
+        }
+        @keyframes floatHero {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-8px); }
+        }
+        .hero h1 {
+            font-size: 4rem;
+            font-family: 'Dancing Script', cursive;
+            background: linear-gradient(135deg, #ffb3d1, #e0aaff, #ff758f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: textShine 3s infinite;
+        }
+        @keyframes textShine {
+            0%, 100% { filter: drop-shadow(0 0 5px rgba(255,153,200,0.5)); }
+            50% { filter: drop-shadow(0 0 25px rgba(217,167,255,0.8)); }
+        }
+        .hero p {
+            font-size: 1.5rem;
+            letter-spacing: 2px;
         }
 
-        h1 {
-            color: var(--blanco);
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        /* Contador mejorado */
+        .counter-card {
+            background: linear-gradient(145deg, rgba(20,8,12,0.85), rgba(0,0,0,0.7));
+            backdrop-filter: blur(12px);
+            border-radius: 3rem;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+            border: 1px solid var(--gold);
+            transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+            animation: pulseGlow 2s infinite;
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 5px rgba(255,217,102,0.3); }
+            100% { box-shadow: 0 0 30px rgba(255,217,102,0.5); }
+        }
+        .days-number {
+            font-size: 5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--gold), var(--pink), var(--red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
-        .subtitle {
-            color: var(--blanco);
-            font-size: 1.2rem;
+        /* Secciones */
+        .section {
+            background: rgba(15,8,12,0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 2.5rem;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(217,167,255,0.3);
+            transition: all 0.3s ease;
+        }
+        .section:hover {
+            border-color: var(--pink);
+            transform: translateY(-3px);
+        }
+
+        /* Títulos */
+        .section-title {
+            font-size: 2rem;
+            border-left: 8px solid var(--pink);
+            padding-left: 1.2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .section-title i {
+            font-size: 1.8rem;
+            color: var(--purple);
+        }
+
+        /* GRID DE 4 COLUMNAS para todas las secciones excepto libros */
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.8rem;
+        }
+
+        /* DISEÑO HORIZONTAL PARA LIBROS (tipo fila con scroll) */
+        .books-horizontal {
+            display: flex;
+            flex-direction: row;
+            overflow-x: auto;
+            gap: 1.8rem;
+            padding: 1rem 0.5rem 2rem 0.5rem;
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--pink) rgba(255,153,200,0.2);
+        }
+        .books-horizontal::-webkit-scrollbar {
+            height: 8px;
+        }
+        .books-horizontal::-webkit-scrollbar-track {
+            background: rgba(255,153,200,0.2);
+            border-radius: 10px;
+        }
+        .books-horizontal::-webkit-scrollbar-thumb {
+            background: var(--pink);
+            border-radius: 10px;
+        }
+        .books-horizontal::-webkit-scrollbar-thumb:hover {
+            background: var(--red);
+        }
+        /* Cada libro en horizontal tiene un ancho fijo */
+        .book-card-horizontal {
+            flex: 0 0 280px;
+            background: linear-gradient(145deg, #2a1a24, #1c1018);
+            border-radius: 1.8rem;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            border-bottom: 3px solid var(--purple);
+        }
+        .book-card-horizontal:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 35px rgba(255,94,124,0.4);
+            border-bottom-color: var(--gold);
+        }
+        .book-card-horizontal img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .book-card-horizontal:hover img {
+            transform: scale(1.05);
+        }
+        .book-card-horizontal .card-info {
+            padding: 1rem;
+            text-align: center;
+        }
+        .book-card-horizontal .card-info h3 {
+            color: var(--pink);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .book-card-horizontal .card-info p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        /* Indicador de scroll */
+        .scroll-hint {
+            text-align: center;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--gold);
+            opacity: 0.7;
+        }
+        .scroll-hint i {
+            animation: slideArrow 1.5s infinite;
+        }
+        @keyframes slideArrow {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(8px); }
+        }
+
+        /* Para tablets: grid-4 se adapta */
+        @media (max-width: 1024px) {
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 640px) {
+            .grid-4 {
+                grid-template-columns: 1fr;
+            }
+            .book-card-horizontal {
+                flex: 0 0 260px;
+            }
+        }
+
+        /* Tarjetas normales */
+        .movie-card, .photo-card, .game-card, .pet-card {
+            background: linear-gradient(145deg, #2a1a24, #1c1018);
+            border-radius: 1.8rem;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            border-bottom: 3px solid var(--purple);
+        }
+        .movie-card:hover, .photo-card:hover, .game-card:hover, .pet-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 35px rgba(255,94,124,0.4);
+            border-bottom-color: var(--gold);
+        }
+        .movie-card img, .photo-card img, .game-card img, .pet-card img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .movie-card:hover img, .photo-card:hover img, .game-card:hover img, .pet-card:hover img {
+            transform: scale(1.05);
+        }
+        .card-info {
+            padding: 1rem;
+            text-align: center;
+        }
+        .card-info h3 {
+            color: var(--pink);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .card-info p {
+            font-size: 0.85rem;
             opacity: 0.9;
         }
 
-        .heart {
-            color: #ff6b6b;
-            display: inline-block;
-            animation: heartbeat 1.5s infinite;
-        }
-
-        .app-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-
-        .note-form {
-            background-color: var(--blanco);
-            border-radius: 15px;
-            padding: 20px;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 10px 20px var(--sombra);
-            animation: slideInLeft 0.8s ease;
-        }
-
-        .form-title {
-            color: var(--morado-oscuro);
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .input-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: var(--morado-oscuro);
-            font-weight: 500;
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid var(--celeste);
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--morado);
-            box-shadow: 0 0 0 3px rgba(177, 156, 217, 0.3);
-        }
-
-        textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .btn {
-            background-color: var(--morado);
-            color: var(--blanco);
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            font-weight: 600;
-        }
-
-        .btn:hover {
-            background-color: var(--morado-oscuro);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .notes-container {
-            flex: 1;
-            min-width: 300px;
-            max-width: 800px;
+        /* Sección trabajos */
+        .jobs-wrapper {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            animation: slideInRight 0.8s ease;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
         }
-
-        .note {
-            background-color: var(--blanco);
-            border-radius: 15px;
-            padding: 15px;
-            box-shadow: 0 5px 15px var(--sombra);
-            position: relative;
-            transition: all 0.3s ease;
-            animation: fadeIn 0.5s ease;
-            overflow: hidden;
+        @media (max-width: 768px) {
+            .jobs-wrapper {
+                grid-template-columns: 1fr;
+            }
         }
-
-        .note:hover {
+        .job-col {
+            background: rgba(30,15,22,0.9);
+            border-radius: 1.8rem;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,94,124,0.4);
+        }
+        .job-col:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            border-color: var(--gold);
         }
-
-        .note::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(to right, var(--celeste), var(--morado));
-        }
-
-        .note-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--celeste);
-        }
-
-        .note-date {
-            color: var(--morado-oscuro);
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .note-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .edit-btn, .delete-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-
-        .edit-btn {
-            color: var(--morado);
-        }
-
-        .delete-btn {
-            color: #ff6b6b;
-        }
-
-        .edit-btn:hover, .delete-btn:hover {
-            transform: scale(1.2);
-        }
-
-        .note-content {
-            color: #333;
-            line-height: 1.5;
-        }
-
-        .note-content.editable {
-            border: 1px dashed var(--morado);
-            padding: 8px;
-            border-radius: 5px;
-            background-color: var(--cuadro-color);
-        }
-
-        .empty-notes {
-            grid-column: 1 / -1;
+        .job-col h3 {
             text-align: center;
-            padding: 40px;
-            color: var(--blanco);
-            font-size: 1.2rem;
-            opacity: 0.8;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+        .job-list {
+            list-style: none;
+        }
+        .job-list li {
+            background: rgba(255,153,200,0.1);
+            margin: 0.8rem 0;
+            padding: 0.8rem;
+            border-radius: 1rem;
+            border-left: 4px solid var(--red);
+            transition: 0.2s;
+        }
+        .job-list li:hover {
+            transform: translateX(8px);
+            background: rgba(255,153,200,0.2);
+        }
+        .year-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--purple), #a855f7);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            margin-left: 10px;
+            font-weight: bold;
         }
 
-        .floating-hearts {
+        /* Fechas especiales */
+        .dates-special {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        @media (max-width: 768px) {
+            .dates-special {
+                grid-template-columns: 1fr;
+            }
+        }
+        .date-card {
+            background: linear-gradient(145deg, #351e2a, #201218);
+            padding: 1.2rem;
+            border-radius: 2rem;
+            text-align: center;
+            border: 1px solid var(--pink);
+            transition: all 0.3s;
+        }
+        .date-card:hover {
+            transform: scale(1.03);
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(255,217,102,0.4);
+        }
+        .date-card i {
+            font-size: 1.5rem;
+            color: var(--red);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1200;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            backdrop-filter: blur(12px);
+        }
+        .modal-img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 1.5rem;
+            animation: zoomIn 0.3s ease;
+        }
+        @keyframes zoomIn {
+            from { transform: scale(0.7); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* Botón flotante */
+        .go-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: linear-gradient(135deg, var(--purple), var(--pink));
+            border: none;
+            border-radius: 50%;
+            width: 52px;
+            height: 52px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s;
+            color: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+        }
+        .go-top:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+
+        /* Partículas flotantes */
+        .floating-particle {
+            position: fixed;
             pointer-events: none;
-            z-index: -1;
+            z-index: 999;
+            font-size: 1rem;
+            animation: floatUp 5s ease-out forwards;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+            100% { transform: translateY(-200px) rotate(360deg); opacity: 0; }
         }
 
-        .heart-float {
-            position: absolute;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 20px;
-            animation: float 8s linear infinite;
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.1rem;
         }
 
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-30px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(30px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes heartbeat {
+        @keyframes pulse {
             0% { transform: scale(1); }
-            5% { transform: scale(1.1); }
-            10% { transform: scale(1); }
-            15% { transform: scale(1.2); }
-            50% { transform: scale(1); }
-            100% { transform: scale(1); }
-        }
-
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
-        }
-
-        @media (max-width: 768px) {
-            .app-container {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .note-form, .notes-container {
-                width: 100%;
-            }
+            100% { transform: scale(1.1); }
         }
     </style>
 </head>
 <body>
 
-<div class="floating-hearts" id="floatingHearts"></div>
-
 <div class="container">
-    <header>
-        <h1>Notas de por vida para usted mi Corazón <span class="heart">❤</span></h1>
-        <p class="subtitle">Lo podras ver cuando tu quieras e inlcuso donde sea </p>
-    </header>
-
-
-        <div class="notes-container" id="notesContainer">
-
-            <!-- AQUI AGREGAS TUS NOTAS MANUALMENTE -->
-            <ul id="staticNotes" style="display:none;">
-
-                <li class="news-item">
-                    <div class="meta">22/11/2025</div>
-                    <h3>Nota #1</h3>
-                    <p>Tu eres mi angel que llevare toda mi vida e inlcuso despues de nuestra muerte.</p>
-                </li>
-        
-            </ul>
-
+    <div class="hero" data-aos="zoom-in" data-aos-duration="1200">
+        <h1>💕 Mi Amor & Yo 💕</h1>
+        <p>Nuestra historia de amor infinita</p>
+        <div style="margin-top: 1rem;">
+            <i class="fas fa-heart" style="color: #ff99c8; animation: pulse 1s infinite;"></i>
+            <i class="fas fa-star" style="color: #ffd966; margin: 0 10px;"></i>
+            <i class="fas fa-heart" style="color: #ff5e7c; animation: pulse 1s infinite delay-0.3s;"></i>
         </div>
     </div>
-</div>
 
-<script>
+    <!-- Contador -->
+    <div class="counter-card" data-aos="flip-up" data-aos-duration="1000">
+        <i class="fas fa-infinity" style="font-size: 2rem; color: var(--gold);"></i>
+        <h2>Llevamos juntos</h2>
+        <div class="days-number" id="daysCounter">--</div>
+        <p>✨ Cada día es una nueva aventura a tu lado ✨</p>
+    </div>
 
-let editMode = false;
+    <!-- SECCIÓN PELÍCULAS - GRID 4 COLUMNAS -->
+    <div class="section" data-aos="fade-up">
+        <div class="section-title"><i class="fas fa-film"></i><span>🎬 Películas que hemos visto</span></div>
+        <div class="grid-4" id="moviesGrid"></div>
+    </div>
 
-document.addEventListener('DOMContentLoaded', function() {
+    <!-- SECCIÓN FOTOS - GRID 4 COLUMNAS -->
+    <div class="section" data-aos="fade-up" data-aos-delay="100">
+        <div class="section-title"><i class="fas fa-camera-retro"></i><span>📸 Momentos juntos</span></div>
+        <div class="grid-4" id="photosGrid"></div>
+    </div>
 
-    createFloatingHearts();
-    loadStaticNotes();  // ← NUEVO
-    loadNotes();
+    <!-- SECCIÓN LIBROS - DISEÑO HORIZONTAL TIPO FILA -->
+    <div class="section" data-aos="fade-up" data-aos-delay="150">
+        <div class="section-title"><i class="fas fa-book-open"></i><span>📖 Libros que he hecho para ti, mi amor</span></div>
+        <div class="books-horizontal" id="booksHorizontal">
+            <!-- Los libros se cargarán dinámicamente aquí en horizontal -->
+        </div>
+        <div class="scroll-hint">
+            <i class="fas fa-arrow-right"></i> Desliza horizontalmente para ver más libros <i class="fas fa-arrow-left"></i>
+        </div>
+        <p style="text-align: center; margin-top: 1rem; font-style: italic; color: var(--gold);">✨ Haz clic en cualquier libro para abrirlo en PDF ✨</p>
+    </div>
 
-    document.getElementById('noteForm').addEventListener('submit', function(e) {
-        e.preventDefault();
+    <!-- SECCIÓN HIJITOS - GRID 4 COLUMNAS -->
+    <div class="section" data-aos="fade-up">
+        <div class="section-title"><i class="fas fa-paw"></i><span>🐾 Nuestros Hijitos 🐾</span></div>
+        <div class="grid-4" id="petsGrid"></div>
+    </div>
 
-        const date = document.getElementById('noteDate').value;
-        const content = document.getElementById('noteContent').value;
-
-        if (date && content) {
-            addNote(date, content);
-            document.getElementById('noteForm').reset();
-
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('noteDate').value = today;
-        }
-    });
-
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('noteDate').value = today;
-
-    document.querySelector('h1').addEventListener('dblclick', function() {
-        toggleEditMode();
-    });
-});
-
-function loadStaticNotes() {
-    const items = document.querySelectorAll('#staticNotes .news-item');
-
-    items.forEach(item => {
-        const date = item.querySelector('.meta').textContent.trim();
-        const title = item.querySelector('h3').textContent.trim();
-        const content = item.querySelector('p').innerHTML.trim();
-
-        const noteEl = document.createElement('div');
-        noteEl.classList.add('note');
-
-        noteEl.innerHTML = `
-            <div class="note-header">
-                <div class="note-date">${date}</div>
-                <div class="note-actions">
-                    <button class="edit-btn" onclick="editNote(this)" style="display:${editMode ? 'block':'none'}">✏️</button>
-                    <button class="delete-btn" onclick="deleteNote(this)">×</button>
-                </div>
+    <!-- SECCIÓN TRABAJOS -->
+    <div class="section" data-aos="fade-up">
+        <div class="section-title"><i class="fas fa-briefcase"></i><span>💼 Trabajos conseguidos</span></div>
+        <div class="jobs-wrapper">
+            <div class="job-col">
+                <h3><i class="fas fa-female" style="color:#ff99c8;"></i> Trabajos de mi Novia</h3>
+                <ul class="job-list" id="jobsNovia"></ul>
             </div>
-            <div class="note-content"><strong>${title}</strong><br>${content}</div>
-        `;
-
-        document.getElementById('notesContainer').appendChild(noteEl);
-    });
-}
-
-function createFloatingHearts() {
-    const container = document.getElementById('floatingHearts');
-    const heartCount = 15;
-
-    for (let i = 0; i < heartCount; i++) {
-        const heart = document.createElement('div');
-        heart.classList.add('heart-float');
-        heart.innerHTML = '❤';
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.animationDuration = (Math.random() * 10 + 5) + 's';
-        heart.style.animationDelay = Math.random() * 5 + 's';
-        container.appendChild(heart);
-    }
-}
-
-function toggleEditMode() {
-    editMode = !editMode;
-
-    const editButtons = document.querySelectorAll('.edit-btn');
-    editButtons.forEach(btn => btn.style.display = editMode ? 'block' : 'none');
-
-    const notes = document.querySelectorAll('.note');
-    notes.forEach(note => {
-        note.style.border = editMode ? '2px dashed var(--morado)' : 'none';
-    });
-
-    showMessage(editMode ? 'Modo edición activado' : 'Modo edición desactivado');
-}
-
-function showMessage(message) {
-    const el = document.createElement('div');
-    el.textContent = message;
-    el.style.position = 'fixed';
-    el.style.top = '20px';
-    el.style.left = '50%';
-    el.style.transform = 'translateX(-50%)';
-    el.style.backgroundColor = 'var(--morado)';
-    el.style.color = 'white';
-    el.style.padding = '10px 20px';
-    el.style.borderRadius = '5px';
-    el.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
-    el.style.zIndex = '1000';
-
-    document.body.appendChild(el);
-
-    setTimeout(() => el.remove(), 2000);
-}
-
-function addNote(date, content) {
-    const emptyNotes = document.getElementById('emptyNotes');
-    if (emptyNotes) emptyNotes.style.display = 'none';
-
-    const note = document.createElement('div');
-    note.classList.add('note');
-
-    const formattedDate = formatDate(date);
-
-    note.innerHTML = `
-        <div class="note-header">
-            <div class="note-date">${formattedDate}</div>
-            <div class="note-actions">
-                <button class="edit-btn" onclick="editNote(this)" style="display:${editMode ? 'block':'none'}">✏️</button>
-                <button class="delete-btn" onclick="deleteNote(this)">×</button>
+            <div class="job-col">
+                <h3><i class="fas fa-user" style="color:#ff5e7c;"></i> Mis trabajos</h3>
+                <ul class="job-list" id="jobsMio"></ul>
             </div>
         </div>
-        <div class="note-content">${content}</div>
-    `;
+    </div>
 
-    note.style.animation = 'fadeIn 0.5s ease';
-    document.getElementById('notesContainer').appendChild(note);
+    <!-- SECCIÓN JUEGOS - GRID 4 COLUMNAS -->
+    <div class="section" data-aos="fade-up">
+        <div class="section-title"><i class="fas fa-gamepad"></i><span>🎮 Juegos jugados juntos</span></div>
+        <div class="grid-4" id="gamesGrid"></div>
+    </div>
 
-    saveNotes();
-}
+    <!-- SECCIÓN FECHAS ESPECIALES -->
+    <div class="section" data-aos="fade-up">
+        <div class="section-title"><i class="fas fa-calendar-alt"></i><span>📅 Fechas especiales</span></div>
+        <div class="dates-special" id="specialDates"></div>
+    </div>
 
-function editNote(button) {
-    const note = button.closest('.note');
-    const content = note.querySelector('.note-content');
+    <footer>
+        <i class="fas fa-heart"></i> Hecho con amor infinito para ti, mi vida. Cada momento a tu lado es magia pura. <i class="fas fa-heart"></i>
+    </footer>
+</div>
 
-    if (content.isContentEditable) {
-        content.contentEditable = false;
-        content.classList.remove('editable');
-        button.textContent = '✏️';
-        saveNotes();
-    } else {
-        content.contentEditable = true;
-        content.classList.add('editable');
-        button.textContent = '💾';
-        content.focus();
+<!-- Modal para fotos -->
+<div id="imageModal" class="modal"><img class="modal-img" id="modalImg" src=""></div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 800, once: true, offset: 50 });
+
+    // Contador de días
+    const startDate = new Date(2025, 10, 26, 23, 7, 0);
+    function updateDays() {
+        const diff = Math.floor((new Date() - startDate) / (1000*60*60*24));
+        document.getElementById('daysCounter').innerText = diff + " días";
     }
-}
+    updateDays();
+    setInterval(updateDays, 86400000);
 
-function deleteNote(button) {
-    const note = button.closest('.note');
+    // Modal para fotos
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+    function openModal(src) { modal.style.display = 'flex'; modalImg.src = src; }
+    modal.addEventListener('click', () => modal.style.display = 'none');
 
-    note.style.animation = 'fadeOut 0.5s ease';
-
-    setTimeout(() => {
-        note.remove();
-
-        const notesContainer = document.getElementById('notesContainer');
-        if (notesContainer.children.length === 1) {
-            const emptyNotes = document.getElementById('emptyNotes');
-            if (emptyNotes) emptyNotes.style.display = 'block';
-        }
-
-        saveNotes();
-    }, 500);
-}
-
-function formatDate(dateString) {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString('es-ES', options);
-}
-
-function saveNotes() {
-    const notes = [];
-    const elements = document.querySelectorAll('.note');
-
-    elements.forEach(n => {
-        const date = n.querySelector('.note-date').textContent;
-        const content = n.querySelector('.note-content').innerHTML;
-        notes.push({ date, content });
-    });
-
-    localStorage.setItem('loveNotes', JSON.stringify(notes));
-}
-
-function loadNotes() {
-    const raw = localStorage.getItem('loveNotes');
-    if (!raw) return;
-
-    const notes = JSON.parse(raw);
-
-    if (notes.length > 0) {
-        const emptyNotes = document.getElementById('emptyNotes');
-        if (emptyNotes) emptyNotes.style.display = 'none';
+    // Helper para tarjetas normales (grid 4)
+    function createCard(imgSrc, title, desc, type) {
+        const div = document.createElement('div');
+        div.className = `${type}-card`;
+        div.innerHTML = `<img src="${imgSrc}" alt="${title}"><div class="card-info"><h3>${title}</h3><p>${desc}</p></div>`;
+        div.querySelector('img').addEventListener('click', (e) => { e.stopPropagation(); openModal(imgSrc); });
+        return div;
     }
 
-    notes.forEach(note => {
-        const noteEl = document.createElement('div');
-        noteEl.classList.add('note');
+    // Helper para tarjetas de libros horizontales
+    function createBookCardHorizontal(book) {
+        const div = document.createElement('div');
+        div.className = 'book-card-horizontal';
+        div.innerHTML = `<img src="${book.img}" alt="${book.name}"><div class="card-info"><h3>${book.name}</h3><p>${book.desc}</p></div>`;
+        div.addEventListener('click', (e) => {
+            e.stopPropagation();
+            window.open(book.pdf, '_blank');
+        });
+        div.querySelector('img').style.cursor = 'pointer';
+        return div;
+    }
 
-        noteEl.innerHTML = `
-            <div class="note-header">
-                <div class="note-date">${note.date}</div>
-                <div class="note-actions">
-                    <button class="edit-btn" onclick="editNote(this)" style="display:${editMode ? 'block':'none'}">✏️</button>
-                    <button class="delete-btn" onclick="deleteNote(this)">×</button>
-                </div>
-            </div>
-            <div class="note-content">${note.content}</div>
-        `;
+    // ========== DATOS ==========
+    // Películas (4 items)
+    const movies = [
+        { name: "Interestelar", img: "https://picsum.photos/id/104/300/200?seed=int", desc: "Viaje espacial que nos inspiró" },
+        { name: "La La Land", img: "https://picsum.photos/id/106/300/200?seed=lala", desc: "Amor y sueños" },
+        { name: "Your Name", img: "https://picsum.photos/id/29/300/200?seed=your", desc: "Anime que nos unió" },
+        { name: "Parásitos", img: "https://picsum.photos/id/119/300/200?seed=para", desc: "Thriller inolvidable" }
+    ];
+    
+    // Fotos (4 items)
+    const photos = [
+        { url: "https://picsum.photos/id/169/400/300?seed=f1", caption: "Atardecer mágico" },
+        { url: "https://picsum.photos/id/20/400/300?seed=f2", caption: "Nuestra aventura" },
+        { url: "https://picsum.photos/id/155/400/300?seed=f3", caption: "Sonrisas infinitas" },
+        { url: "https://picsum.photos/id/58/400/300?seed=f4", caption: "Abrazo eterno" }
+    ];
+    
+    // LIBROS - DISEÑO HORIZONTAL (pueden ser más de 4 para mostrar scroll)
+    const books = [
+        { name: "📘 Poemas de tu Mirada", img: "https://picsum.photos/id/0/300/200?seed=book1", desc: "20 poemas escritos desde el corazón", pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" },
+        { name: "📙 Nuestro Viaje", img: "https://picsum.photos/id/20/300/200?seed=book2", desc: "Nuestras anécdotas y fotografías", pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" },
+        { name: "📖 Cartas de Amor", img: "https://picsum.photos/id/24/300/200?seed=book3", desc: "Cartas que escribí para ti cada mes", pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" },
+        { name: "📕 Recetario del Corazón", img: "https://picsum.photos/id/127/300/200?seed=book4", desc: "Nuestras recetas favoritas", pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" },
+        { name: "💝 Mi Amor Eterno", img: "https://picsum.photos/id/42/300/200?seed=book5", desc: "Un libro especial con nuestros momentos", pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" }
+    ];
+    
+    // Mascotas (4 items)
+    const pets = [
+        { name: "🐱 Copito", img: "https://picsum.photos/id/125/300/200?seed=pet1", desc: "El travieso blanco" },
+        { name: "🐶 Luna", img: "https://picsum.photos/id/140/300/200?seed=pet2", desc: "Nuestra princesa" },
+        { name: "🐹 Chispa", img: "https://picsum.photos/id/14/300/200?seed=pet3", desc: "El pequeño saltarín" },
+        { name: "🐰 Pelusa", img: "https://picsum.photos/id/131/300/200?seed=pet4", desc: "El conejito más tierno" }
+    ];
+    
+    // Trabajos
+    const noviaJobs = [
+        { year: 2025, desc: "Hacer zapatillas con el tío" }, 
+        { year: 2025, desc: "Local de maquillaje" },
+        { year: 2025, desc: "Local de repuestos Far View" }, 
+        { year: 2025, desc: "Local de ropa" },
+        { year: 2026, desc: "Wang Wang importadora (accesorios kawai)" }
+    ];
+    const myJobs = [
+        { year: 2025, desc: "0 trabajos xd 😅 (buscando mi camino)" },
+        { year: 2026, desc: "¡Pronto llegarán oportunidades increíbles! 💪" }
+    ];
+    
+    // Juegos (4 items)
+    const games = [
+        { name: "It Takes Two", img: "https://picsum.photos/id/26/300/200?seed=g1", desc: "Cooperativo perfecto" },
+        { name: "Mario Kart", img: "https://picsum.photos/id/123/300/200?seed=g2", desc: "Carreras épicas" },
+        { name: "Stardew Valley", img: "https://picsum.photos/id/112/300/200?seed=g3", desc: "Nuestra granja feliz" },
+        { name: "Overcooked 2", img: "https://picsum.photos/id/133/300/200?seed=g4", desc: "Cocina caótica" }
+    ];
+    
+    // Fechas especiales (3 items)
+    const specialDates = [
+        { date: "03/12/2007", name: "🌟 Día especial en el alma" },
+        { date: "21/05/2007", name: "💫 Magia que nos unió" },
+        { date: "26/11/2025", name: "🎉 Inicio de nuestra historia oficial" }
+    ];
 
-        document.getElementById('notesContainer').appendChild(noteEl);
-    });
-}
+    // ========== FUNCIONES DE CARGA ==========
+    function loadMovies() {
+        const grid = document.getElementById('moviesGrid');
+        grid.innerHTML = '';
+        movies.forEach(m => grid.appendChild(createCard(m.img, m.name, m.desc, 'movie')));
+    }
+    
+    function loadPhotos() {
+        const grid = document.getElementById('photosGrid');
+        grid.innerHTML = '';
+        photos.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'photo-card';
+            card.innerHTML = `<img src="${p.url}"><div class="card-info"><p>✨ ${p.caption} ✨</p></div>`;
+            card.querySelector('img').addEventListener('click', (e) => { e.stopPropagation(); openModal(p.url); });
+            grid.appendChild(card);
+        });
+    }
+    
+    function loadBooksHorizontal() {
+        const container = document.getElementById('booksHorizontal');
+        container.innerHTML = '';
+        books.forEach(book => {
+            container.appendChild(createBookCardHorizontal(book));
+        });
+    }
+    
+    function loadPets() {
+        const grid = document.getElementById('petsGrid');
+        grid.innerHTML = '';
+        pets.forEach(p => grid.appendChild(createCard(p.img, p.name, p.desc, 'pet')));
+    }
+    
+    function loadJobs() {
+        const noviaList = document.getElementById('jobsNovia');
+        const mioList = document.getElementById('jobsMio');
+        noviaList.innerHTML = '';
+        mioList.innerHTML = '';
+        noviaJobs.forEach(j => {
+            const li = document.createElement('li');
+            li.innerHTML = `<i class="fas fa-check-circle" style="color:#c084fc;"></i> ${j.desc} <span class="year-badge">${j.year}</span>`;
+            noviaList.appendChild(li);
+        });
+        myJobs.forEach(j => {
+            const li = document.createElement('li');
+            li.innerHTML = `<i class="fas fa-star" style="color:#ffd966;"></i> ${j.desc} <span class="year-badge">${j.year}</span>`;
+            mioList.appendChild(li);
+        });
+    }
+    
+    function loadGames() {
+        const grid = document.getElementById('gamesGrid');
+        grid.innerHTML = '';
+        games.forEach(g => grid.appendChild(createCard(g.img, g.name, g.desc, 'game')));
+    }
+    
+    function loadDates() {
+        const container = document.getElementById('specialDates');
+        container.innerHTML = '';
+        specialDates.forEach(d => {
+            const div = document.createElement('div');
+            div.className = 'date-card';
+            div.innerHTML = `<i class="far fa-calendar-check"></i><strong>${d.date}</strong><br><span style="font-size:0.85rem;">${d.name}</span>`;
+            container.appendChild(div);
+        });
+    }
 
+    // Ejecutar todas las cargas
+    loadMovies();
+    loadPhotos();
+    loadBooksHorizontal();
+    loadPets();
+    loadJobs();
+    loadGames();
+    loadDates();
+
+    // Partículas flotantes decorativas
+    function createFloatingParticle() {
+        const particle = document.createElement('div');
+        particle.className = 'floating-particle';
+        const icons = ['❤️', '💖', '💗', '🌸', '✨', '⭐', '💫', '🌹'];
+        particle.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+        particle.style.left = Math.random() * window.innerWidth + 'px';
+        particle.style.bottom = '0px';
+        particle.style.fontSize = (1 + Math.random() * 1.3) + 'rem';
+        document.body.appendChild(particle);
+        setTimeout(() => particle.remove(), 5000);
+    }
+    setInterval(() => { if (Math.random() > 0.85) createFloatingParticle(); }, 2000);
+
+    // Botón Go Top
+    const goTop = document.createElement('button');
+    goTop.innerHTML = '<i class="fas fa-arrow-up"></i>';
+    goTop.className = 'go-top';
+    document.body.appendChild(goTop);
+    goTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    window.addEventListener('scroll', () => goTop.style.opacity = window.scrollY > 300 ? '1' : '0.6');
+    goTop.style.opacity = '0.6';
+    
+    console.log("✨ Página con diseño de 4 columnas y sección de libros HORIZONTAL tipo fila ✨");
 </script>
-
 </body>
 </html>
-
-
-
-
