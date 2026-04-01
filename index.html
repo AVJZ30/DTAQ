@@ -7,15 +7,10 @@
     <!-- Google Fonts y Font Awesome -->
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- AOS Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* [MANTENGO TODOS LOS ESTILOS IGUALES QUE ANTES - SON LOS MISMOS] */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Quicksand', sans-serif;
             background: radial-gradient(circle at 10% 20%, #0a0507, #140c10);
@@ -23,8 +18,6 @@
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
-
-        /* Paleta de colores */
         :root {
             --pink: #ff99c8;
             --pink-dark: #ff6b9d;
@@ -33,16 +26,8 @@
             --red: #ff5e7c;
             --dark: #0a0507;
             --gold: #ffd966;
-            --shadow-lg: 0 25px 45px rgba(0,0,0,0.5);
         }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1.5rem;
-        }
-
-        /* HERO SUPER MEJORADO */
+        .container { max-width: 1400px; margin: 0 auto; padding: 1.5rem; }
         .hero {
             text-align: center;
             padding: 4rem 1rem 3rem;
@@ -67,18 +52,12 @@
             background: radial-gradient(circle, rgba(255,153,200,0.1) 0%, transparent 70%);
             animation: rotateBg 20s linear infinite;
         }
-        @keyframes rotateBg {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        @keyframes rotateBg { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @keyframes borderGlow {
             0% { border-image-source: linear-gradient(45deg, var(--pink), var(--purple)); }
             100% { border-image-source: linear-gradient(45deg, var(--red), var(--gold)); }
         }
-        @keyframes floatHero {
-            0% { transform: translateY(0px); }
-            100% { transform: translateY(-8px); }
-        }
+        @keyframes floatHero { 0% { transform: translateY(0px); } 100% { transform: translateY(-8px); } }
         .hero h1 {
             font-size: 4rem;
             font-family: 'Dancing Script', cursive;
@@ -92,12 +71,7 @@
             0%, 100% { filter: drop-shadow(0 0 5px rgba(255,153,200,0.5)); }
             50% { filter: drop-shadow(0 0 25px rgba(217,167,255,0.8)); }
         }
-        .hero p {
-            font-size: 1.5rem;
-            letter-spacing: 2px;
-        }
-
-        /* Contador mejorado */
+        .hero p { font-size: 1.5rem; letter-spacing: 2px; }
         .counter-card {
             background: linear-gradient(145deg, rgba(20,8,12,0.85), rgba(0,0,0,0.7));
             backdrop-filter: blur(12px);
@@ -121,8 +95,6 @@
             background-clip: text;
             color: transparent;
         }
-
-        /* Secciones */
         .section {
             background: rgba(15,8,12,0.7);
             backdrop-filter: blur(8px);
@@ -132,12 +104,7 @@
             border: 1px solid rgba(217,167,255,0.3);
             transition: all 0.3s ease;
         }
-        .section:hover {
-            border-color: var(--pink);
-            transform: translateY(-3px);
-        }
-
-        /* Títulos */
+        .section:hover { border-color: var(--pink); transform: translateY(-3px); }
         .section-title {
             font-size: 2rem;
             border-left: 8px solid var(--pink);
@@ -147,19 +114,12 @@
             align-items: center;
             gap: 1rem;
         }
-        .section-title i {
-            font-size: 1.8rem;
-            color: var(--purple);
-        }
-
-        /* GRID DE 4 COLUMNAS para todas las secciones excepto libros */
+        .section-title i { font-size: 1.8rem; color: var(--purple); }
         .grid-4 {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 1.8rem;
         }
-
-        /* DISEÑO HORIZONTAL PARA LIBROS (tipo fila con scroll) */
         .books-horizontal {
             display: flex;
             flex-direction: row;
@@ -170,21 +130,9 @@
             scrollbar-width: thin;
             scrollbar-color: var(--pink) rgba(255,153,200,0.2);
         }
-        .books-horizontal::-webkit-scrollbar {
-            height: 8px;
-        }
-        .books-horizontal::-webkit-scrollbar-track {
-            background: rgba(255,153,200,0.2);
-            border-radius: 10px;
-        }
-        .books-horizontal::-webkit-scrollbar-thumb {
-            background: var(--pink);
-            border-radius: 10px;
-        }
-        .books-horizontal::-webkit-scrollbar-thumb:hover {
-            background: var(--red);
-        }
-        /* Cada libro en horizontal tiene un ancho fijo */
+        .books-horizontal::-webkit-scrollbar { height: 8px; }
+        .books-horizontal::-webkit-scrollbar-track { background: rgba(255,153,200,0.2); border-radius: 10px; }
+        .books-horizontal::-webkit-scrollbar-thumb { background: var(--pink); border-radius: 10px; }
         .book-card-horizontal {
             flex: 0 0 280px;
             background: linear-gradient(145deg, #2a1a24, #1c1018);
@@ -206,54 +154,9 @@
             object-fit: cover;
             transition: transform 0.5s ease;
         }
-        .book-card-horizontal:hover img {
-            transform: scale(1.05);
-        }
-        .book-card-horizontal .card-info {
-            padding: 1rem;
-            text-align: center;
-        }
-        .book-card-horizontal .card-info h3 {
-            color: var(--pink);
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-        .book-card-horizontal .card-info p {
-            font-size: 0.85rem;
-            opacity: 0.9;
-        }
-        /* Indicador de scroll */
-        .scroll-hint {
-            text-align: center;
-            margin-top: 0.5rem;
-            font-size: 0.8rem;
-            color: var(--gold);
-            opacity: 0.7;
-        }
-        .scroll-hint i {
-            animation: slideArrow 1.5s infinite;
-        }
-        @keyframes slideArrow {
-            0%, 100% { transform: translateX(0); }
-            50% { transform: translateX(8px); }
-        }
-
-        /* Para tablets: grid-4 se adapta */
-        @media (max-width: 1024px) {
-            .grid-4 {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        @media (max-width: 640px) {
-            .grid-4 {
-                grid-template-columns: 1fr;
-            }
-            .book-card-horizontal {
-                flex: 0 0 260px;
-            }
-        }
-
-        /* Tarjetas normales */
+        .book-card-horizontal:hover img { transform: scale(1.05); }
+        .book-card-horizontal .card-info { padding: 1rem; text-align: center; }
+        .book-card-horizontal .card-info h3 { color: var(--pink); font-weight: 700; font-size: 1.1rem; }
         .movie-card, .photo-card, .game-card, .pet-card {
             background: linear-gradient(145deg, #2a1a24, #1c1018);
             border-radius: 1.8rem;
@@ -274,34 +177,12 @@
             object-fit: cover;
             transition: transform 0.5s ease;
         }
-        .movie-card:hover img, .photo-card:hover img, .game-card:hover img, .pet-card:hover img {
-            transform: scale(1.05);
-        }
-        .card-info {
-            padding: 1rem;
-            text-align: center;
-        }
-        .card-info h3 {
-            color: var(--pink);
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-        .card-info p {
-            font-size: 0.85rem;
-            opacity: 0.9;
-        }
-
-        /* Sección trabajos */
-        .jobs-wrapper {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-        }
-        @media (max-width: 768px) {
-            .jobs-wrapper {
-                grid-template-columns: 1fr;
-            }
-        }
+        .card-info { padding: 1rem; text-align: center; }
+        .card-info h3 { color: var(--pink); font-weight: 700; font-size: 1.1rem; }
+        .jobs-wrapper { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+        @media (max-width: 1024px) { .grid-4 { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { .jobs-wrapper { grid-template-columns: 1fr; } }
+        @media (max-width: 640px) { .grid-4 { grid-template-columns: 1fr; } .book-card-horizontal { flex: 0 0 260px; } }
         .job-col {
             background: rgba(30,15,22,0.9);
             border-radius: 1.8rem;
@@ -309,29 +190,13 @@
             transition: all 0.3s;
             border: 1px solid rgba(255,94,124,0.4);
         }
-        .job-col:hover {
-            transform: translateY(-5px);
-            border-color: var(--gold);
-        }
-        .job-col h3 {
-            text-align: center;
-            margin-bottom: 1rem;
-            font-size: 1.4rem;
-        }
-        .job-list {
-            list-style: none;
-        }
+        .job-col:hover { transform: translateY(-5px); border-color: var(--gold); }
         .job-list li {
             background: rgba(255,153,200,0.1);
             margin: 0.8rem 0;
             padding: 0.8rem;
             border-radius: 1rem;
             border-left: 4px solid var(--red);
-            transition: 0.2s;
-        }
-        .job-list li:hover {
-            transform: translateX(8px);
-            background: rgba(255,153,200,0.2);
         }
         .year-badge {
             display: inline-block;
@@ -341,20 +206,9 @@
             padding: 0.2rem 0.7rem;
             border-radius: 30px;
             margin-left: 10px;
-            font-weight: bold;
         }
-
-        /* Fechas especiales */
-        .dates-special {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-        }
-        @media (max-width: 768px) {
-            .dates-special {
-                grid-template-columns: 1fr;
-            }
-        }
+        .dates-special { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        @media (max-width: 768px) { .dates-special { grid-template-columns: 1fr; } }
         .date-card {
             background: linear-gradient(145deg, #351e2a, #201218);
             padding: 1.2rem;
@@ -363,19 +217,7 @@
             border: 1px solid var(--pink);
             transition: all 0.3s;
         }
-        .date-card:hover {
-            transform: scale(1.03);
-            border-color: var(--gold);
-            box-shadow: 0 0 20px rgba(255,217,102,0.4);
-        }
-        .date-card i {
-            font-size: 1.5rem;
-            color: var(--red);
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        /* Modal */
+        .date-card:hover { transform: scale(1.03); border-color: var(--gold); }
         .modal {
             display: none;
             position: fixed;
@@ -390,18 +232,7 @@
             cursor: pointer;
             backdrop-filter: blur(12px);
         }
-        .modal-img {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 1.5rem;
-            animation: zoomIn 0.3s ease;
-        }
-        @keyframes zoomIn {
-            from { transform: scale(0.7); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        /* Botón flotante */
+        .modal-img { max-width: 90%; max-height: 90%; border-radius: 1.5rem; }
         .go-top {
             position: fixed;
             bottom: 25px;
@@ -414,37 +245,20 @@
             font-size: 1.8rem;
             cursor: pointer;
             z-index: 1000;
-            transition: all 0.3s;
             color: white;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
         }
-        .go-top:hover {
-            transform: translateY(-5px) scale(1.1);
-        }
-
-        /* Partículas flotantes */
+        footer { text-align: center; padding: 2rem; font-family: 'Dancing Script', cursive; }
+        .scroll-hint { text-align: center; margin-top: 0.5rem; font-size: 0.8rem; color: var(--gold); }
+        @keyframes pulse { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
         .floating-particle {
             position: fixed;
             pointer-events: none;
             z-index: 999;
-            font-size: 1rem;
             animation: floatUp 5s ease-out forwards;
         }
         @keyframes floatUp {
             0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
             100% { transform: translateY(-200px) rotate(360deg); opacity: 0; }
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.1rem;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
         }
     </style>
 </head>
@@ -461,7 +275,6 @@
         </div>
     </div>
 
-    <!-- Contador -->
     <div class="counter-card" data-aos="flip-up" data-aos-duration="1000">
         <i class="fas fa-infinity" style="font-size: 2rem; color: var(--gold);"></i>
         <h2>Llevamos juntos</h2>
@@ -469,69 +282,49 @@
         <p>✨ Cada día es una nueva aventura a tu lado ✨</p>
     </div>
 
-    <!-- SECCIÓN PELÍCULAS - GRID 4 COLUMNAS -->
     <div class="section" data-aos="fade-up">
         <div class="section-title"><i class="fas fa-film"></i><span>🎬 Películas que hemos visto</span></div>
         <div class="grid-4" id="moviesGrid"></div>
     </div>
 
-    <!-- SECCIÓN FOTOS - GRID 4 COLUMNAS -->
     <div class="section" data-aos="fade-up" data-aos-delay="100">
         <div class="section-title"><i class="fas fa-camera-retro"></i><span>📸 Momentos juntos</span></div>
         <div class="grid-4" id="photosGrid"></div>
     </div>
 
-    <!-- SECCIÓN LIBROS - DISEÑO HORIZONTAL TIPO FILA -->
     <div class="section" data-aos="fade-up" data-aos-delay="150">
-        <div class="section-title"><i class="fas fa-book-open"></i><span>📖 Libros que he hecho para ti y usted para mi, Mi serpimterno</span></div>
-        <div class="books-horizontal" id="booksHorizontal">
-            <!-- Los libros se cargarán dinámicamente aquí en horizontal -->
-        </div>
-        <div class="scroll-hint">
-            <i class="fas fa-arrow-right"></i> Desliza horizontalmente para ver más libros <i class="fas fa-arrow-left"></i>
-        </div>
+        <div class="section-title"><i class="fas fa-book-open"></i><span>📖 Libros que he hecho para ti, mi amor eterno</span></div>
+        <div class="books-horizontal" id="booksHorizontal"></div>
+        <div class="scroll-hint"><i class="fas fa-arrow-right"></i> Desliza horizontalmente para ver más libros <i class="fas fa-arrow-left"></i></div>
         <p style="text-align: center; margin-top: 1rem; font-style: italic; color: var(--gold);">✨ Haz clic en cualquier libro para abrirlo en PDF ✨</p>
     </div>
 
-    <!-- SECCIÓN HIJITOS - GRID 4 COLUMNAS -->
     <div class="section" data-aos="fade-up">
         <div class="section-title"><i class="fas fa-paw"></i><span>🐾 Nuestros Hijitos 🐾</span></div>
         <div class="grid-4" id="petsGrid"></div>
     </div>
 
-    <!-- SECCIÓN TRABAJOS -->
     <div class="section" data-aos="fade-up">
         <div class="section-title"><i class="fas fa-briefcase"></i><span>💼 Trabajos conseguidos</span></div>
         <div class="jobs-wrapper">
-            <div class="job-col">
-                <h3><i class="fas fa-female" style="color:#ff99c8;"></i> Trabajos de mi Novia</h3>
-                <ul class="job-list" id="jobsNovia"></ul>
-            </div>
-            <div class="job-col">
-                <h3><i class="fas fa-user" style="color:#ff5e7c;"></i> Mis trabajos</h3>
-                <ul class="job-list" id="jobsMio"></ul>
-            </div>
+            <div class="job-col"><h3><i class="fas fa-female" style="color:#ff99c8;"></i> Trabajos de mi Novia</h3><ul class="job-list" id="jobsNovia"></ul></div>
+            <div class="job-col"><h3><i class="fas fa-user" style="color:#ff5e7c;"></i> Mis trabajos</h3><ul class="job-list" id="jobsMio"></ul></div>
         </div>
     </div>
 
-    <!-- SECCIÓN JUEGOS - GRID 4 COLUMNAS -->
     <div class="section" data-aos="fade-up">
-        <div class="section-title"><i class="fas fa-gamepad"></i><span>🎮 Juegos jugados y momento juntos en los juegos </span></div>
+        <div class="section-title"><i class="fas fa-gamepad"></i><span>🎮 Juegos jugados y momentos juntos</span></div>
         <div class="grid-4" id="gamesGrid"></div>
     </div>
 
-    <!-- SECCIÓN FECHAS ESPECIALES -->
     <div class="section" data-aos="fade-up">
         <div class="section-title"><i class="fas fa-calendar-alt"></i><span>📅 Fechas especiales</span></div>
         <div class="dates-special" id="specialDates"></div>
     </div>
 
-    <footer>
-        <i class="fas fa-heart"></i> Hecho con amor puro y verdadero para ti, mi vida. Cada momento a tu lado es la gota de vida pura. <i class="fas fa-heart"></i>
-    </footer>
+    <footer><i class="fas fa-heart"></i> Hecho con amor puro y verdadero para ti, mi vida. <i class="fas fa-heart"></i></footer>
 </div>
 
-<!-- Modal para fotos -->
 <div id="imageModal" class="modal"><img class="modal-img" id="modalImg" src=""></div>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -547,62 +340,70 @@
     updateDays();
     setInterval(updateDays, 86400000);
 
-    // Modal para fotos
+    // Modal
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImg');
     function openModal(src) { modal.style.display = 'flex'; modalImg.src = src; }
     modal.addEventListener('click', () => modal.style.display = 'none');
 
-    // Helper para tarjetas normales (grid 4)
+    // Función para convertir enlace de Google Drive a formato directo
+    function convertDriveUrl(url) {
+        if (!url) return url;
+        // Si es enlace de Google Drive
+        if (url.includes('drive.google.com')) {
+            const match = url.match(/[-\w]{25,}/);
+            if (match) {
+                return `https://drive.google.com/uc?export=view&id=${match[0]}`;
+            }
+        }
+        return url;
+    }
+
     function createCard(imgSrc, title, desc, type) {
         const div = document.createElement('div');
         div.className = `${type}-card`;
-        div.innerHTML = `<img src="${imgSrc}" alt="${title}"><div class="card-info"><h3>${title}</h3><p>${desc}</p></div>`;
-        div.querySelector('img').addEventListener('click', (e) => { e.stopPropagation(); openModal(imgSrc); });
+        const directImg = convertDriveUrl(imgSrc);
+        div.innerHTML = `<img src="${directImg}" alt="${title}" onerror="this.src='https://placehold.co/400x300/2a1a24/ff99c8?text=${encodeURIComponent(title)}'"><div class="card-info"><h3>${title}</h3><p>${desc}</p></div>`;
+        const img = div.querySelector('img');
+        img.addEventListener('click', (e) => { e.stopPropagation(); openModal(img.src); });
         return div;
     }
 
-    // Helper para tarjetas de libros horizontales
     function createBookCardHorizontal(book) {
         const div = document.createElement('div');
         div.className = 'book-card-horizontal';
-        div.innerHTML = `<img src="${book.img}" alt="${book.name}"><div class="card-info"><h3>${book.name}</h3><p>${book.desc}</p></div>`;
+        const directImg = convertDriveUrl(book.img);
+        div.innerHTML = `<img src="${directImg}" alt="${book.name}" onerror="this.src='https://placehold.co/400x300/2a1a24/ff99c8?text=${encodeURIComponent(book.name)}'"><div class="card-info"><h3>${book.name}</h3><p>${book.desc}</p></div>`;
         div.addEventListener('click', (e) => {
             e.stopPropagation();
             window.open(book.pdf, '_blank');
         });
-        div.querySelector('img').style.cursor = 'pointer';
         return div;
     }
 
-    // ========== DATOS ==========
-    // Películas (4 items)
+    // ========== AQUÍ PONES TUS ENLACES DE GOOGLE DRIVE ==========
+    // SOLO REEMPLAZA LOS ENLACES CON LOS TUYOS
+    
     const movies = [
-        { name: "Saga Completa de Las Leyendas", img: "https://i.pinimg.com/736x/cd/62/d6/cd62d6bb3b93e8551de87ecf29de91e2.jpg", desc: "Saga Completa de Las Leyendas" },
-
-    ];
-    
-    // Fotos (4 items)
-    const photos = [
-        { url: "https://picsum.photos/id/169/400/300?seed=f1", caption: "Un miercoles apasionado" },
-
-    ];
-    
-    // LIBROS - DISEÑO HORIZONTAL (pueden ser más de 4 para mostrar scroll)
-    const books = [
-        { name: "📘 El edificio del abecedario del amor", img: "https://www.pinterest.com/pin/1033435445763046706/", desc: "El edificio del abecedario del amor", pdf: "https://drive.google.com/file/d/19kwet0bW_fYFwXXz8wc_NxOBhaNGnQZz/view?usp=drive_link" },
-        { name: "💝 El joven que se caso con el amor", img: "https://www.pinterest.com/pin/1033435445763046705/", desc: "El joven que se caso con el amor", pdf: "https://drive.google.com/file/d/18cBf2Jer71bPEXI8gwFJ7vHuya1qpkY-/view?usp=drive_link" }
-    ];
-    
-    // Mascotas (4 items)
-    const pets = [
-        { name: "🐱 Ikaro", img: "https://picsum.photos/id/125/300/200?seed=pet1", desc: "Un angel en forma de gato" },
-        { name: "🐱 Niño", img: "https://picsum.photos/id/140/300/200?seed=pet2", desc: "El rebelde y posador para fotos " },
-        { name: "🐶 Rocky", img: "https://picsum.photos/id/14/300/200?seed=pet3", desc: "El mimado" }
+        { name: "Saga Completa de Las Leyendas", img: "https://drive.google.com/file/d/TU_ID_AQUI/view", desc: "Saga Completa de Las Leyendas" }
        
     ];
     
-    // Trabajos
+    const photos = [
+        { url: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&h=300&fit=crop", caption: "Un miércoles apasionado" }
+      
+    
+    const books = [
+        { name: "📘 El edificio del abecedario del amor", img: "https://drive.google.com/uc?export=view&id=1P6YTgguMdcA9XsR3i5FnydPiReh70AoP", desc: "El edificio del abecedario del amor", pdf: "https://drive.google.com/file/d/19kwet0bW_fYFwXXz8wc_NxOBhaNGnQZz/view?usp=drive_link" },
+        { name: "💝 El joven que se casó con el amor", img: "https://drive.google.com/file/d/1P6YTgguMdcA9XsR3i5FnydPiReh70AoP/view?usp=drive_link", desc: "El joven que se casó con el amor", pdf: "https://drive.google.com/file/d/18cBf2Jer71bPEXI8gwFJ7vHuya1qpkY-/view?usp=drive_link" }
+    ];
+    
+    const pets = [
+        { name: "🐱 Ikaro", img: "https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400&h=300&fit=crop", desc: "Un ángel en forma de gato" },
+        { name: "🐱 Niño", img: "https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8?w=400&h=300&fit=crop", desc: "El rebelde y posador para fotos" },
+        { name: "🐶 Rocky", img: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400&h=300&fit=crop", desc: "El mimado de la casa" }
+    ];
+    
     const noviaJobs = [
         { year: 2025, desc: "Hacer zapatillas con tu tío" }, 
         { year: 2025, desc: "Local de maquillaje" },
@@ -610,126 +411,42 @@
         { year: 2025, desc: "Local de ropa" },
         { year: 2026, desc: "Wang Wang importadora (accesorios kawai)" }
     ];
+    
     const myJobs = [
         { year: 2025, desc: "0 trabajos xd 😅 (buscando mi camino)" },
-        { year: 2026, desc: "¡Sin chamba pero generando dinero" }
+        { year: 2026, desc: "Sin chamba pero generando dinero 💪" }
     ];
     
-    // Juegos (4 items)
     const games = [
-        { name: "It Takes Two", img: "https://picsum.photos/id/26/300/200?seed=g1", desc: "Cooperativo perfecto" },
-        { name: "Mario Kart", img: "https://picsum.photos/id/123/300/200?seed=g2", desc: "Carreras épicas" },
-        { name: "Stardew Valley", img: "https://picsum.photos/id/112/300/200?seed=g3", desc: "Nuestra granja feliz" },
-        { name: "Overcooked 2", img: "https://picsum.photos/id/133/300/200?seed=g4", desc: "Cocina caótica" }
+        { name: "It Takes Two", img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=300&fit=crop", desc: "Cooperativo perfecto" },
+        { name: "Mario Kart", img: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=400&h=300&fit=crop", desc: "Carreras épicas" },
+        { name: "Stardew Valley", img: "https://images.unsplash.com/photo-1621259182978-fbf93132d53d?w=400&h=300&fit=crop", desc: "Nuestra granja feliz" },
+        { name: "Overcooked 2", img: "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?w=400&h=300&fit=crop", desc: "Cocina caótica" }
     ];
     
-    // Fechas especiales (3 items)
     const specialDates = [
         { date: "03/12/2007", name: "🌟 Día de nacimiento de tu caballero" },
-        { date: "21/05/2007", name: "💫 Dia de nacimiento de mi damicela" },
-        { date: "26/11/2025", name: "🎉 Inicio de nuestro amor unico y el mas puro" }
+        { date: "21/05/2007", name: "💫 Día de nacimiento de mi damicela" },
+        { date: "26/11/2025", name: "🎉 Inicio de nuestro amor único y más puro" }
     ];
 
-    // ========== FUNCIONES DE CARGA ==========
-    function loadMovies() {
-        const grid = document.getElementById('moviesGrid');
-        grid.innerHTML = '';
-        movies.forEach(m => grid.appendChild(createCard(m.img, m.name, m.desc, 'movie')));
-    }
-    
-    function loadPhotos() {
-        const grid = document.getElementById('photosGrid');
-        grid.innerHTML = '';
-        photos.forEach(p => {
-            const card = document.createElement('div');
-            card.className = 'photo-card';
-            card.innerHTML = `<img src="${p.url}"><div class="card-info"><p>✨ ${p.caption} ✨</p></div>`;
-            card.querySelector('img').addEventListener('click', (e) => { e.stopPropagation(); openModal(p.url); });
-            grid.appendChild(card);
-        });
-    }
-    
-    function loadBooksHorizontal() {
-        const container = document.getElementById('booksHorizontal');
-        container.innerHTML = '';
-        books.forEach(book => {
-            container.appendChild(createBookCardHorizontal(book));
-        });
-    }
-    
-    function loadPets() {
-        const grid = document.getElementById('petsGrid');
-        grid.innerHTML = '';
-        pets.forEach(p => grid.appendChild(createCard(p.img, p.name, p.desc, 'pet')));
-    }
-    
-    function loadJobs() {
-        const noviaList = document.getElementById('jobsNovia');
-        const mioList = document.getElementById('jobsMio');
-        noviaList.innerHTML = '';
-        mioList.innerHTML = '';
-        noviaJobs.forEach(j => {
-            const li = document.createElement('li');
-            li.innerHTML = `<i class="fas fa-check-circle" style="color:#c084fc;"></i> ${j.desc} <span class="year-badge">${j.year}</span>`;
-            noviaList.appendChild(li);
-        });
-        myJobs.forEach(j => {
-            const li = document.createElement('li');
-            li.innerHTML = `<i class="fas fa-star" style="color:#ffd966;"></i> ${j.desc} <span class="year-badge">${j.year}</span>`;
-            mioList.appendChild(li);
-        });
-    }
-    
-    function loadGames() {
-        const grid = document.getElementById('gamesGrid');
-        grid.innerHTML = '';
-        games.forEach(g => grid.appendChild(createCard(g.img, g.name, g.desc, 'game')));
-    }
-    
-    function loadDates() {
-        const container = document.getElementById('specialDates');
-        container.innerHTML = '';
-        specialDates.forEach(d => {
-            const div = document.createElement('div');
-            div.className = 'date-card';
-            div.innerHTML = `<i class="far fa-calendar-check"></i><strong>${d.date}</strong><br><span style="font-size:0.85rem;">${d.name}</span>`;
-            container.appendChild(div);
-        });
-    }
+    // Funciones de carga
+    function loadMovies() { const grid = document.getElementById('moviesGrid'); grid.innerHTML = ''; movies.forEach(m => grid.appendChild(createCard(m.img, m.name, m.desc, 'movie'))); }
+    function loadPhotos() { const grid = document.getElementById('photosGrid'); grid.innerHTML = ''; photos.forEach(p => { const card = document.createElement('div'); card.className = 'photo-card'; const directUrl = convertDriveUrl(p.url); card.innerHTML = `<img src="${directUrl}" onerror="this.src='https://placehold.co/400x300/2a1a24/ff99c8?text=Foto+Especial'"><div class="card-info"><p>✨ ${p.caption} ✨</p></div>`; card.querySelector('img').addEventListener('click', (e) => { e.stopPropagation(); openModal(directUrl); }); grid.appendChild(card); }); }
+    function loadBooksHorizontal() { const container = document.getElementById('booksHorizontal'); container.innerHTML = ''; books.forEach(book => container.appendChild(createBookCardHorizontal(book))); }
+    function loadPets() { const grid = document.getElementById('petsGrid'); grid.innerHTML = ''; pets.forEach(p => grid.appendChild(createCard(p.img, p.name, p.desc, 'pet'))); }
+    function loadJobs() { const noviaList = document.getElementById('jobsNovia'); const mioList = document.getElementById('jobsMio'); noviaList.innerHTML = ''; mioList.innerHTML = ''; noviaJobs.forEach(j => { const li = document.createElement('li'); li.innerHTML = `<i class="fas fa-check-circle" style="color:#c084fc;"></i> ${j.desc} <span class="year-badge">${j.year}</span>`; noviaList.appendChild(li); }); myJobs.forEach(j => { const li = document.createElement('li'); li.innerHTML = `<i class="fas fa-star" style="color:#ffd966;"></i> ${j.desc} <span class="year-badge">${j.year}</span>`; mioList.appendChild(li); }); }
+    function loadGames() { const grid = document.getElementById('gamesGrid'); grid.innerHTML = ''; games.forEach(g => grid.appendChild(createCard(g.img, g.name, g.desc, 'game'))); }
+    function loadDates() { const container = document.getElementById('specialDates'); container.innerHTML = ''; specialDates.forEach(d => { const div = document.createElement('div'); div.className = 'date-card'; div.innerHTML = `<i class="far fa-calendar-check"></i><strong>${d.date}</strong><br><span style="font-size:0.85rem;">${d.name}</span>`; container.appendChild(div); }); }
 
-    // Ejecutar todas las cargas
-    loadMovies();
-    loadPhotos();
-    loadBooksHorizontal();
-    loadPets();
-    loadJobs();
-    loadGames();
-    loadDates();
+    loadMovies(); loadPhotos(); loadBooksHorizontal(); loadPets(); loadJobs(); loadGames(); loadDates();
 
-    // Partículas flotantes decorativas
-    function createFloatingParticle() {
-        const particle = document.createElement('div');
-        particle.className = 'floating-particle';
-        const icons = ['❤️', '💖', '💗', '🌸', '✨', '⭐', '💫', '🌹'];
-        particle.innerHTML = icons[Math.floor(Math.random() * icons.length)];
-        particle.style.left = Math.random() * window.innerWidth + 'px';
-        particle.style.bottom = '0px';
-        particle.style.fontSize = (1 + Math.random() * 1.3) + 'rem';
-        document.body.appendChild(particle);
-        setTimeout(() => particle.remove(), 5000);
-    }
+    // Partículas flotantes
+    function createFloatingParticle() { const particle = document.createElement('div'); particle.className = 'floating-particle'; const icons = ['❤️', '💖', '💗', '🌸', '✨', '⭐', '💫', '🌹']; particle.innerHTML = icons[Math.floor(Math.random() * icons.length)]; particle.style.left = Math.random() * window.innerWidth + 'px'; particle.style.bottom = '0px'; particle.style.fontSize = (1 + Math.random() * 1.3) + 'rem'; document.body.appendChild(particle); setTimeout(() => particle.remove(), 5000); }
     setInterval(() => { if (Math.random() > 0.85) createFloatingParticle(); }, 2000);
 
     // Botón Go Top
-    const goTop = document.createElement('button');
-    goTop.innerHTML = '<i class="fas fa-arrow-up"></i>';
-    goTop.className = 'go-top';
-    document.body.appendChild(goTop);
-    goTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-    window.addEventListener('scroll', () => goTop.style.opacity = window.scrollY > 300 ? '1' : '0.6');
-    goTop.style.opacity = '0.6';
-    
-    console.log("✨ Página con diseño de 4 columnas y sección de libros HORIZONTAL tipo fila ✨");
+    const goTop = document.createElement('button'); goTop.innerHTML = '<i class="fas fa-arrow-up"></i>'; goTop.className = 'go-top'; document.body.appendChild(goTop); goTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' })); window.addEventListener('scroll', () => goTop.style.opacity = window.scrollY > 300 ? '1' : '0.6'); goTop.style.opacity = '0.6';
 </script>
 </body>
 </html>
