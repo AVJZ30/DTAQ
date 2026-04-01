@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        /* [MANTENGO TODOS LOS ESTILOS IGUALES QUE ANTES - SON LOS MISMOS] */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Quicksand', sans-serif;
@@ -349,7 +348,6 @@
     // Función para convertir enlace de Google Drive a formato directo
     function convertDriveUrl(url) {
         if (!url) return url;
-        // Si es enlace de Google Drive
         if (url.includes('drive.google.com')) {
             const match = url.match(/[-\w]{25,}/);
             if (match) {
@@ -381,27 +379,33 @@
         return div;
     }
 
-    // ========== AQUÍ PONES TUS ENLACES DE GOOGLE DRIVE ==========
+    // ========== 📍 AQUÍ COLOCAS TODAS TUS IMÁGENES DE GOOGLE DRIVE 📍 ==========
     // SOLO REEMPLAZA LOS ENLACES CON LOS TUYOS
+    // FORMATO: "https://drive.google.com/file/d/TU_ID_AQUI/view"
     
     const movies = [
-        { name: "Saga Completa de Las Leyendas", img: "https://drive.google.com/file/d/TU_ID_AQUI/view", desc: "Saga Completa de Las Leyendas" }
-       
+        { name: "Saga Completa de Las Leyendas", img: "https://drive.google.com/file/d/TU_ID_PELICULA_1/view", desc: "Saga Completa de Las Leyendas" },
+        { name: "Interestelar", img: "https://drive.google.com/file/d/TU_ID_PELICULA_2/view", desc: "Viaje espacial que nos inspiró" },
+        { name: "La La Land", img: "https://drive.google.com/file/d/TU_ID_PELICULA_3/view", desc: "Amor y sueños" },
+        { name: "Your Name", img: "https://drive.google.com/file/d/TU_ID_PELICULA_4/view", desc: "Anime que nos unió" }
     ];
     
     const photos = [
-        { url: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&h=300&fit=crop", caption: "Un miércoles apasionado" }
-      
+        { url: "https://drive.google.com/file/d/TU_ID_FOTO_1/view", caption: "Nuestro momento especial ✨" },
+        { url: "https://drive.google.com/file/d/TU_ID_FOTO_2/view", caption: "Atardecer mágico juntos" },
+        { url: "https://drive.google.com/file/d/TU_ID_FOTO_3/view", caption: "Sonrisas infinitas" },
+        { url: "https://drive.google.com/file/d/TU_ID_FOTO_4/view", caption: "Abrazo eterno" }
+    ];
     
     const books = [
         { name: "📘 El edificio del abecedario del amor", img: "https://drive.google.com/uc?export=view&id=1P6YTgguMdcA9XsR3i5FnydPiReh70AoP", desc: "El edificio del abecedario del amor", pdf: "https://drive.google.com/file/d/19kwet0bW_fYFwXXz8wc_NxOBhaNGnQZz/view?usp=drive_link" },
-        { name: "💝 El joven que se casó con el amor", img: "https://drive.google.com/file/d/1P6YTgguMdcA9XsR3i5FnydPiReh70AoP/view?usp=drive_link", desc: "El joven que se casó con el amor", pdf: "https://drive.google.com/file/d/18cBf2Jer71bPEXI8gwFJ7vHuya1qpkY-/view?usp=drive_link" }
+        { name: "💝 El joven que se casó con el amor", img: "https://drive.google.com/uc?export=view&id=1KEY7XssahoEytY_LhBls5cTg-M8mCues", desc: "El joven que se casó con el amor", pdf: "https://drive.google.com/file/d/18cBf2Jer71bPEXI8gwFJ7vHuya1qpkY-/view?usp=drive_link" }
     ];
     
     const pets = [
-        { name: "🐱 Ikaro", img: "https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400&h=300&fit=crop", desc: "Un ángel en forma de gato" },
-        { name: "🐱 Niño", img: "https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8?w=400&h=300&fit=crop", desc: "El rebelde y posador para fotos" },
-        { name: "🐶 Rocky", img: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400&h=300&fit=crop", desc: "El mimado de la casa" }
+        { name: "🐱 Ikaro", img: "https://drive.google.com/file/d/TU_ID_GATO_1/view", desc: "Un ángel en forma de gato" },
+        { name: "🐱 Niño", img: "https://drive.google.com/file/d/TU_ID_GATO_2/view", desc: "El rebelde y posador para fotos" },
+        { name: "🐶 Rocky", img: "https://drive.google.com/file/d/TU_ID_PERRO/view", desc: "El mimado de la casa" }
     ];
     
     const noviaJobs = [
@@ -418,10 +422,10 @@
     ];
     
     const games = [
-        { name: "It Takes Two", img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=300&fit=crop", desc: "Cooperativo perfecto" },
-        { name: "Mario Kart", img: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=400&h=300&fit=crop", desc: "Carreras épicas" },
-        { name: "Stardew Valley", img: "https://images.unsplash.com/photo-1621259182978-fbf93132d53d?w=400&h=300&fit=crop", desc: "Nuestra granja feliz" },
-        { name: "Overcooked 2", img: "https://images.unsplash.com/photo-1551103782-8ab07afd45c1?w=400&h=300&fit=crop", desc: "Cocina caótica" }
+        { name: "It Takes Two", img: "https://drive.google.com/file/d/TU_ID_JUEGO_1/view", desc: "Cooperativo perfecto" },
+        { name: "Mario Kart", img: "https://drive.google.com/file/d/TU_ID_JUEGO_2/view", desc: "Carreras épicas" },
+        { name: "Stardew Valley", img: "https://drive.google.com/file/d/TU_ID_JUEGO_3/view", desc: "Nuestra granja feliz" },
+        { name: "Overcooked 2", img: "https://drive.google.com/file/d/TU_ID_JUEGO_4/view", desc: "Cocina caótica" }
     ];
     
     const specialDates = [
