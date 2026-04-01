@@ -483,7 +483,7 @@
 
     <!-- SECCIÓN LIBROS - DISEÑO HORIZONTAL TIPO FILA -->
     <div class="section" data-aos="fade-up" data-aos-delay="150">
-        <div class="section-title"><i class="fas fa-book-open"></i><span>📖 Libros que he hecho para ti, mi amor</span></div>
+        <div class="section-title"><i class="fas fa-book-open"></i><span>📖 Libros que he hecho para ti y usted para mi, Mi serpimterno</span></div>
         <div class="books-horizontal" id="booksHorizontal">
             <!-- Los libros se cargarán dinámicamente aquí en horizontal -->
         </div>
@@ -516,7 +516,7 @@
 
     <!-- SECCIÓN JUEGOS - GRID 4 COLUMNAS -->
     <div class="section" data-aos="fade-up">
-        <div class="section-title"><i class="fas fa-gamepad"></i><span>🎮 Juegos jugados juntos</span></div>
+        <div class="section-title"><i class="fas fa-gamepad"></i><span>🎮 Juegos jugados y momento juntos en los juegos </span></div>
         <div class="grid-4" id="gamesGrid"></div>
     </div>
 
@@ -527,7 +527,7 @@
     </div>
 
     <footer>
-        <i class="fas fa-heart"></i> Hecho con amor infinito para ti, mi vida. Cada momento a tu lado es magia pura. <i class="fas fa-heart"></i>
+        <i class="fas fa-heart"></i> Hecho con amor puro y verdadero para ti, mi vida. Cada momento a tu lado es la gota de vida pura. <i class="fas fa-heart"></i>
     </footer>
 </div>
 
@@ -578,48 +578,41 @@
     // ========== DATOS ==========
     // Películas (4 items)
     const movies = [
-        { name: "Interestelar", img: "https://picsum.photos/id/104/300/200?seed=int", desc: "Viaje espacial que nos inspiró" },
-        { name: "La La Land", img: "https://picsum.photos/id/106/300/200?seed=lala", desc: "Amor y sueños" },
-        { name: "Your Name", img: "https://picsum.photos/id/29/300/200?seed=your", desc: "Anime que nos unió" },
-        { name: "Parásitos", img: "https://picsum.photos/id/119/300/200?seed=para", desc: "Thriller inolvidable" }
+        { name: "Saga Completa de Las Leyendas", img: "https://i.pinimg.com/736x/cd/62/d6/cd62d6bb3b93e8551de87ecf29de91e2.jpg", desc: "Saga Completa de Las Leyendas" },
+
     ];
     
     // Fotos (4 items)
     const photos = [
-        { url: "https://picsum.photos/id/169/400/300?seed=f1", caption: "Atardecer mágico" },
-        { url: "https://picsum.photos/id/20/400/300?seed=f2", caption: "Nuestra aventura" },
-        { url: "https://picsum.photos/id/155/400/300?seed=f3", caption: "Sonrisas infinitas" },
-        { url: "https://picsum.photos/id/58/400/300?seed=f4", caption: "Abrazo eterno" }
+        { url: "https://picsum.photos/id/169/400/300?seed=f1", caption: "Un miercoles apasionado" },
+
     ];
     
     // LIBROS - DISEÑO HORIZONTAL (pueden ser más de 4 para mostrar scroll)
     const books = [
-        { name: "📘 Poemas de tu Mirada", img: "https://picsum.photos/id/0/300/200?seed=book1", desc: "20 poemas escritos desde el corazón", pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" },
-        { name: "📙 Nuestro Viaje", img: "https://picsum.photos/id/20/300/200?seed=book2", desc: "Nuestras anécdotas y fotografías", pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" },
-        { name: "📖 Cartas de Amor", img: "https://picsum.photos/id/24/300/200?seed=book3", desc: "Cartas que escribí para ti cada mes", pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" },
-        { name: "📕 Recetario del Corazón", img: "https://picsum.photos/id/127/300/200?seed=book4", desc: "Nuestras recetas favoritas", pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" },
-        { name: "💝 Mi Amor Eterno", img: "https://picsum.photos/id/42/300/200?seed=book5", desc: "Un libro especial con nuestros momentos", pdf: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf" }
+        { name: "📘 El edificio del abecedario del amor", img: "https://picsum.photos/id/0/300/200?seed=book1", desc: "El edificio del abecedario del amor", pdf: "https://drive.google.com/file/d/19kwet0bW_fYFwXXz8wc_NxOBhaNGnQZz/view?usp=drive_link" },
+        { name: "💝 El joven que se caso con el amor", img: "https://picsum.photos/id/42/300/200?seed=book5", desc: "El joven que se caso con el amor", pdf: "https://drive.google.com/file/d/18cBf2Jer71bPEXI8gwFJ7vHuya1qpkY-/view?usp=drive_link" }
     ];
     
     // Mascotas (4 items)
     const pets = [
-        { name: "🐱 Copito", img: "https://picsum.photos/id/125/300/200?seed=pet1", desc: "El travieso blanco" },
-        { name: "🐶 Luna", img: "https://picsum.photos/id/140/300/200?seed=pet2", desc: "Nuestra princesa" },
-        { name: "🐹 Chispa", img: "https://picsum.photos/id/14/300/200?seed=pet3", desc: "El pequeño saltarín" },
-        { name: "🐰 Pelusa", img: "https://picsum.photos/id/131/300/200?seed=pet4", desc: "El conejito más tierno" }
+        { name: "🐱 Ikaro", img: "https://picsum.photos/id/125/300/200?seed=pet1", desc: "Un angel en forma de gato" },
+        { name: "🐱 Niño", img: "https://picsum.photos/id/140/300/200?seed=pet2", desc: "El rebelde y posador para fotos " },
+        { name: "🐶 Rocky", img: "https://picsum.photos/id/14/300/200?seed=pet3", desc: "El mimado" }
+       
     ];
     
     // Trabajos
     const noviaJobs = [
-        { year: 2025, desc: "Hacer zapatillas con el tío" }, 
+        { year: 2025, desc: "Hacer zapatillas con tu tío" }, 
         { year: 2025, desc: "Local de maquillaje" },
-        { year: 2025, desc: "Local de repuestos Far View" }, 
+        { year: 2025, desc: "Far View" }, 
         { year: 2025, desc: "Local de ropa" },
         { year: 2026, desc: "Wang Wang importadora (accesorios kawai)" }
     ];
     const myJobs = [
         { year: 2025, desc: "0 trabajos xd 😅 (buscando mi camino)" },
-        { year: 2026, desc: "¡Pronto llegarán oportunidades increíbles! 💪" }
+        { year: 2026, desc: "¡Sin chamba pero generando dinero" }
     ];
     
     // Juegos (4 items)
@@ -632,9 +625,9 @@
     
     // Fechas especiales (3 items)
     const specialDates = [
-        { date: "03/12/2007", name: "🌟 Día especial en el alma" },
-        { date: "21/05/2007", name: "💫 Magia que nos unió" },
-        { date: "26/11/2025", name: "🎉 Inicio de nuestra historia oficial" }
+        { date: "03/12/2007", name: "🌟 Día de nacimiento de tu caballero" },
+        { date: "21/05/2007", name: "💫 Dia de nacimiento de mi damicela" },
+        { date: "26/11/2025", name: "🎉 Inicio de nuestro amor unico y el mas puro" }
     ];
 
     // ========== FUNCIONES DE CARGA ==========
